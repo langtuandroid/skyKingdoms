@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Managers;
 using Service;
@@ -6,7 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace Player
 {
-    public class BoyController : MonoBehaviour, IAttackCooldown
+    public class GirlController : MonoBehaviour, IAttackCooldown
     {
         #region INSPECTOR VARIABLES
         [Header("CONFIGURATION\n")]
@@ -105,6 +106,20 @@ namespace Player
         #endregion
     
         #region UNITY METHODS
+
+        private void OnEnable()
+        {
+            ServiceLocator.GetService<MyInputManager>().movementAction.performed += OnMovementPerformed;
+            ServiceLocator.GetService<MyInputManager>().movementAction.canceled += OnMovementCanceled;
+        }
+
+        private void OnDisable()
+        {
+            ServiceLocator.GetService<MyInputManager>().movementAction.performed -= OnMovementPerformed;
+            ServiceLocator.GetService<MyInputManager>().movementAction.canceled -= OnMovementCanceled;
+        }
+
+
         private void Awake()
         {
             rb = GetComponentInChildren<Rigidbody>();
@@ -113,7 +128,7 @@ namespace Player
         
         private void Update()
         {
-            if (!CanMove) return;
+            //if (!CanMove) return;
             
             CheckGrounded();
 
@@ -133,13 +148,13 @@ namespace Player
 
         private void FixedUpdate()
         {
-            if (!CanMove) return;
+           // if (!CanMove) return;
             FixedControls();   
         }
 
         private void LateUpdate()
         {
-            if (!CanMove) return;
+            //if (!CanMove) return;
             animator.SetFloat("speed", movement.magnitude);
             animator.SetBool("walk", movement.magnitude > 0f);
             animator.SetBool("jump", isJumping && !isShooting);
@@ -246,14 +261,14 @@ namespace Player
         #endregion
 
         #region MOVEMENT
-        public void SetMovementPerformed(Vector3 movementInput)
+        public void OnMovementPerformed(InputAction.CallbackContext callbackContext)
         {
-            movement = movementInput;
+            movement = callbackContext.ReadValue<Vector2>();
         }
 
-        public void SetMovementCanceled(Vector3 movementInput)
+        public void OnMovementCanceled(InputAction.CallbackContext callbackContext)
         {
-            movement = movementInput;
+           movement = Vector2.zero;
         }
 
         #endregion

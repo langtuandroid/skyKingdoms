@@ -23,7 +23,7 @@ public class GhostMazeAI : MonoBehaviour
 
     private void Update()
     {
-        if (!BoyController.Instance.CanMove) return;
+       // if (!BoyController.Instance.CanMove) return;
         
         if (!isChasing)
         {
@@ -69,21 +69,21 @@ public class GhostMazeAI : MonoBehaviour
         
         transform.LookAt(player.position);
         
-        if (BoyController.Instance.IsDefending)
+        /*if (BoyController.Instance.IsDefending)
         {
             isConfused = true;
             Invoke("ResumePatrol", 2f);
-        }
+        }*/
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isReset && !BoyController.Instance.IsDefending)
+       /* if (other.CompareTag("Player") && !isReset && !BoyController.Instance.IsDefending)
         {
             Debug.Log("Entro");
             isReset = true;
             ResetGame();
-        }
+        }*/
     }
 
     private void ResetGame()

@@ -7,11 +7,11 @@ namespace Managers
     public class MyInputManager : MonoBehaviour
     {
         public InputActionAsset playerInput;
-        private InputAction movementAction;
-        private InputAction shootAction;
-        private InputAction jumpAction;
-        private InputAction defenseAction;
-        private InputAction specialAttackAction;
+        public InputAction movementAction;
+        public InputAction shootAction;
+        public InputAction jumpAction;
+        public InputAction defenseAction;
+        public InputAction specialAttackAction;
 
         public InputAction uiMovementAction;
         public InputAction submitAction;
@@ -120,20 +120,17 @@ namespace Managers
         #region PLAYER INPUTS
         private void OnMovementPerformed(InputAction.CallbackContext context)
         {
-            if (BoyController.Instance != null)
-                BoyController.Instance.SetMovementPerformed(context.ReadValue<Vector2>());
+
         }
 
         private void OnMovementCanceled(InputAction.CallbackContext context)
         {
-            if (BoyController.Instance != null)
-                BoyController.Instance.SetMovementPerformed(Vector3.zero);
+            
         }
 
         private void OnShootPerformed(InputAction.CallbackContext context)
         {
-            if (BoyController.Instance != null)
-                BoyController.Instance.SetShootPermormed();
+            
         }
 
         private void OnJumpPerformed(InputAction.CallbackContext context)
@@ -143,8 +140,7 @@ namespace Managers
 
         private void OnDefensePerformed(InputAction.CallbackContext context)
         {
-            if (BoyController.Instance != null)
-                BoyController.Instance.SetDefensePerformed();
+
         }
 
         private void OnSpecialAttackStarted(InputAction.CallbackContext context)

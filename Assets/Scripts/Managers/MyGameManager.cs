@@ -163,19 +163,12 @@ namespace Managers
         #region PAUSE GAME
         public void PausePlayerMovement()
         {
-            if (BoyController.Instance != null)
-            {
-                BoyController.Instance.CanMove = false;
-            }
+        
         }
 
         public static void ResumePlayerMovement()
         {
-            if (BoyController.Instance != null)
-            {
-                BoyController.Instance.CanMove = true;
           
-            }
         }
         #endregion
     }

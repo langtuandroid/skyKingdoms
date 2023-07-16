@@ -54,7 +54,7 @@ public class GoblinBoss : MonoBehaviour
 
             if (Vector3.Distance(Bat.transform.position, batTargetPosition) <= 0.5f)
             {
-                if (BoyController.Instance.IsDefending)
+                /*if (BoyController.Instance.IsDefending)
                 {
                     Bat.transform.position = batOriginalPosition.position;
                     Bat.transform.rotation = Quaternion.Euler(0f, 0, 50f);
@@ -67,7 +67,7 @@ public class GoblinBoss : MonoBehaviour
                 else
                 {
                     isBatReturning = true;
-                }
+                }*/
             }
         }
         else

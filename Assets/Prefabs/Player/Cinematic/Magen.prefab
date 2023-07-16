@@ -903,7 +903,7 @@ GameObject:
   - component: {fileID: 2858501295864084503}
   - component: {fileID: 2858501295864084500}
   m_Layer: 0
-  m_Name: Violet
+  m_Name: Magen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

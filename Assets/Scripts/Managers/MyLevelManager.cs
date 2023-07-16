@@ -70,7 +70,7 @@ namespace Managers
                             backToScene = false;
                             var position = GameObject.FindWithTag("BackPosition").GetComponent<Transform>()
                                 .position;
-                            BoyController.Instance.SetPosition(position);
+                            //BoyController.Instance.SetPosition(position);
                         }
 
                         //TODO null reference

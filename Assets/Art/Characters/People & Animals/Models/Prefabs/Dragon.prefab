@@ -258,6 +258,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66e56ad5adea544eba8e847e6791202c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  velocidad: 0
+  impulsoVelocidad: 0
+  inclinacionMaxima: 0
+  alabeoMaximo: 0
+  FlameThrower: {fileID: 0}
+  FirePoint: {fileID: 0}
+  RotationPoint: {fileID: 0}
+  limiteHorizontal: 0
+  limiteVertical: 0
+  inputActions: {fileID: 0}
 --- !u!1 &2352668954980713375
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,10 +35,10 @@ public class Collectible : MonoBehaviour
             if (other.CompareTag("Player"))
             {
                 Vector3 dragonPosition = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
-                if(!MyGameManager.Instance.AIDemoControl)
+               /* if(!MyGameManager.Instance.AIDemoControl)
                     BoyController.Instance.ShowDragon(dragonPosition);
                 else
-                    SceneManager.LoadScene("Menu_game");
+                    SceneManager.LoadScene("Menu_game");*/
             }
             
             Collect();

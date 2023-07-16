@@ -2479,9 +2479,10 @@ GameObject:
   - component: {fileID: 707363505}
   - component: {fileID: 707363506}
   - component: {fileID: 707363507}
-  - component: {fileID: 707363508}
   - component: {fileID: 707363509}
   - component: {fileID: 707363510}
+  - component: {fileID: 5201651570851943521}
+  - component: {fileID: 7043606274141699144}
   m_Layer: 0
   m_Name: FemaleCharacterPBR
   m_TagString: Untagged
@@ -2549,7 +2550,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &707363506
 BoxCollider:
@@ -2578,37 +2579,6 @@ CapsuleCollider:
   m_Height: 1.5946484
   m_Direction: 1
   m_Center: {x: -0.0017852485, y: 0.7854681, z: 0}
---- !u!114 &707363508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7647134206250791342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7adddf0d91ca246bbb4a7e57dbeda724, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  rotationSpeed: 50
-  jumpHeight: 2
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  groundCheckDistance: 0.05
-  spellPrefab: {fileID: 6093286693894017021}
-  defensePrefab: {fileID: 7532362704756051769}
-  specialAttackPrefab: {fileID: 1971651565}
-  spellSpawn: {fileID: 1262240470}
-  specialSpellSpawn: {fileID: 1280830033}
-  OffsetCollider: {fileID: 81152735}
-  defenseCooldown: 5
-  specialAttackCooldown: 15
-  shootCooldown: 2
-  isDefenseCooldown: 0
-  isSpecialAttackCooldown: 0
-  isShootCooldown: 0
 --- !u!114 &707363509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2616,7 +2586,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7647134206250791342}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb49014d9ecec479f98faec3ec03f80e, type: 3}
   m_Name: 
@@ -2632,7 +2602,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7647134206250791342}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: feed5a0fa77d24bf1bc74de71660287e, type: 3}
   m_Name: 
@@ -2640,6 +2610,51 @@ MonoBehaviour:
   shootImage: {fileID: 0}
   defenseImage: {fileID: 0}
   specialAttackImage: {fileID: 0}
+--- !u!114 &5201651570851943521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7647134206250791342}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae80df7ca7094c15bc0753798737bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  rotationSpeed: 3
+  jumpHeight: 3
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  groundCheckDistance: 0.1
+  spellPrefab: {fileID: 6093286693894017021}
+  defensePrefab: {fileID: 7532362704756051769}
+  specialAttackPrefab: {fileID: 1971651565}
+  spellSpawn: {fileID: 1262240470}
+  specialSpellSpawn: {fileID: 1280830033}
+  OffsetCollider: {fileID: 0}
+  defenseCooldown: 2
+  specialAttackCooldown: 2
+  shootCooldown: 2
+  isDefenseCooldown: 0
+  isSpecialAttackCooldown: 0
+  isShootCooldown: 0
+--- !u!114 &7043606274141699144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7647134206250791342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b26c01a47bf2a4c93a453833bf76b27a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  rotationSpeed: 3
 --- !u!1 &7667767699941656935
 GameObject:
   m_ObjectHideFlags: 0

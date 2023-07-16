@@ -1,4 +1,3 @@
-    using System;
     using System.Collections;
     using Managers;
     using Service;
@@ -26,7 +25,8 @@
 
         void Start()
         {
-            StartCoroutine(DrawRainbow());
+            ServiceLocator.GetService<MyInputManager>().UIInputs();
+            //StartCoroutine(DrawRainbow());
         }
 
         private void EndsCinematic(InputAction.CallbackContext obj)

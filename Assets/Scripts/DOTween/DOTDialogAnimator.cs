@@ -24,7 +24,7 @@ public class DOTDialogAnimator : MonoBehaviour
 
     public void HideDialogBox()
     {
-        dialogImage.DOFade(0f, fadeInTime).OnComplete(() => {
+        dialogImage.DOFade(0f, 0.05f).OnComplete(() => {
             dialogImageObj.SetActive(false);
         });
     }

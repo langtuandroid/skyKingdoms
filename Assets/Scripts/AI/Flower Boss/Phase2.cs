@@ -16,12 +16,13 @@ public class Phase2 : FSMBoss
 
     public override void Execute(Boss agent)
     {
-        Vector3 targetPosition = BoyController.Instance.transform.position;
+        Vector3 targetPosition = agent.Player.transform.position;
+        
         agent.transform.LookAt(targetPosition);
         
         FuryMode(agent.transform, targetPosition);
 
-        if (HasCollidedWithPlayer(agent.transform))
+        if (HasCollidedWithPlayer(agent.transform, agent.Player))
         {
             StopFuryMode(agent.transform);
             WaitBeforeContinuing();
@@ -33,7 +34,7 @@ public class Phase2 : FSMBoss
             if (waitTimer >= waitTime)
             {
                 isWaiting = false;
-                JumpToTarget(agent.transform, BoyController.Instance.transform.position);
+                JumpToTarget(agent.transform, agent.Player.transform.position);
             }
         }
     }
@@ -80,10 +81,10 @@ public class Phase2 : FSMBoss
         waitTimer = 0f;
     }
 
-    private bool HasCollidedWithPlayer(Transform agentTransform)
+    private bool HasCollidedWithPlayer(Transform agentTransform, GameObject player)
     {
         Collider agentCollider = agentTransform.GetComponent<Collider>();
-        Collider playerCollider = BoyController.Instance.GetComponent<Collider>();
+        Collider playerCollider = player.GetComponent<Collider>();
 
         if (agentCollider != null && playerCollider != null)
         {

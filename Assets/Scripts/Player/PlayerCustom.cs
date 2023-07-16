@@ -16,7 +16,7 @@ namespace Player
         {
             Girl.transform.rotation = Quaternion.Euler(0f, 00f, 0f);
             Boy.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-            ServiceLocator.GetService<MyDialogueManager>().NewOptionText("Elige un personaje", "", "Leo", "Violet", true);
+            ServiceLocator.GetService<MyDialogueManager>().NewOptionText(Text_ChooseCharacter.OptionText, "", Text_ChooseCharacter.OptionA, Text_ChooseCharacter.OptionB, true);
         }
 
         private void Update()

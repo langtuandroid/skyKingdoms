@@ -7,9 +7,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 648457295, guid: b58d00834d00e4d4f85c7b3f88cd459c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 711413842, guid: b58d00834d00e4d4f85c7b3f88cd459c, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176248239, guid: b58d00834d00e4d4f85c7b3f88cd459c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1604922839, guid: b58d00834d00e4d4f85c7b3f88cd459c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1088642855870908090, guid: b58d00834d00e4d4f85c7b3f88cd459c, type: 3}
       propertyPath: m_Name
       value: MyDialog Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1749785519123999580, guid: b58d00834d00e4d4f85c7b3f88cd459c, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2086924469824280995, guid: b58d00834d00e4d4f85c7b3f88cd459c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5755202153762094771, guid: b58d00834d00e4d4f85c7b3f88cd459c, type: 3}
       propertyPath: m_RootOrder

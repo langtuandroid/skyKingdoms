@@ -2575,6 +2575,7 @@ GameObject:
   - component: {fileID: 1544741685}
   - component: {fileID: 1544741686}
   - component: {fileID: 1544741687}
+  - component: {fileID: 824599481180675623}
   m_Layer: 0
   m_Name: MaleCharacterPBR
   m_TagString: Untagged
@@ -2642,7 +2643,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &1544741683
 BoxCollider:
@@ -2678,7 +2679,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8189980434977739222}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7adddf0d91ca246bbb4a7e57dbeda724, type: 3}
   m_Name: 
@@ -2733,6 +2734,20 @@ MonoBehaviour:
   shootImage: {fileID: 0}
   defenseImage: {fileID: 0}
   specialAttackImage: {fileID: 0}
+--- !u!114 &824599481180675623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8189980434977739222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b26c01a47bf2a4c93a453833bf76b27a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  rotationSpeed: 3
 --- !u!1 &8206070634150816031
 GameObject:
   m_ObjectHideFlags: 0

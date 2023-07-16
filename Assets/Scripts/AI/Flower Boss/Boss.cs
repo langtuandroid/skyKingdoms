@@ -101,11 +101,12 @@ public class Boss : MonoBehaviour
             GameOver();
     }
 
-    private bool CheckPlayerStart() => BoyController.Instance.CanMove;
+    //private bool CheckPlayerStart() => BoyController.Instance.CanMove;
 
     private IEnumerator StartIA()
     {
-        yield return new WaitUntil(CheckPlayerStart);
+        //yield return new WaitUntil(CheckPlayerStart);
+        yield return new WaitForSeconds(1f);
         ChangePhase(BossPhase.Phase1);
         fight = true;
     }

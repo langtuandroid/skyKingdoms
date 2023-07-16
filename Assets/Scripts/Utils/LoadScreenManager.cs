@@ -26,7 +26,7 @@ public class LoadScreenManager : MonoBehaviour
 
          if (SceneManager.GetActiveScene().name == "FirstLoad")
          {
-             LoadScene();
+             LoadScene("Cinematic");
          }
          else
          {
