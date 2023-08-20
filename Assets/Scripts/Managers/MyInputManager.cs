@@ -1,4 +1,3 @@
-using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +11,7 @@ namespace Managers
         public InputAction jumpAction;
         public InputAction defenseAction;
         public InputAction specialAttackAction;
+        public InputAction attackAction;
 
         public InputAction uiMovementAction;
         public InputAction submitAction;
@@ -41,6 +41,7 @@ namespace Managers
                 jumpAction = playerActionMap.FindAction("Jump");
                 defenseAction = playerActionMap.FindAction("Defense");
                 specialAttackAction = playerActionMap.FindAction("Special Attack");
+                attackAction = playerActionMap.FindAction("Attack");
             }
             else
             {
@@ -86,7 +87,10 @@ namespace Managers
                 defenseAction.Enable();
 
             if (specialAttackAction != null)
-                specialAttackAction.Enable();
+                specialAttackAction.Enable();            
+            
+            if (attackAction != null)
+                attackAction.Enable();
         }
 
         public void UIInputs()
@@ -105,6 +109,9 @@ namespace Managers
 
             if (specialAttackAction != null)
                 specialAttackAction.Disable();
+            
+            if (attackAction != null)
+                attackAction.Enable();
 
             if (uiMovementAction != null)
                 uiMovementAction.Enable();
@@ -114,56 +121,6 @@ namespace Managers
 
             if (anyAction != null)
                 anyAction.Enable();
-        }
-        #endregion
-
-        #region PLAYER INPUTS
-        private void OnMovementPerformed(InputAction.CallbackContext context)
-        {
-
-        }
-
-        private void OnMovementCanceled(InputAction.CallbackContext context)
-        {
-            
-        }
-
-        private void OnShootPerformed(InputAction.CallbackContext context)
-        {
-            
-        }
-
-        private void OnJumpPerformed(InputAction.CallbackContext context)
-        {
-            // Lógica para el salto
-        }
-
-        private void OnDefensePerformed(InputAction.CallbackContext context)
-        {
-
-        }
-
-        private void OnSpecialAttackStarted(InputAction.CallbackContext context)
-        {
-            // Lógica para el inicio del ataque especial
-        }
-
-        private void OnSpecialAttackCanceled(InputAction.CallbackContext context)
-        {
-            // Lógica para la cancelación del ataque especial
-        }
-        #endregion
-
-        #region UI INPUTS
-     
-        private void OnAny(InputAction.CallbackContext context)
-        {
-            AnyBtnPressed = true;
-        }
-
-        private void OnAnyCanceled(InputAction.CallbackContext context)
-        {
-            AnyBtnPressed = false;
         }
         #endregion
     }

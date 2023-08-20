@@ -89,6 +89,15 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""78296b48-2e0e-4123-8b5d-dba141c5f0d3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -265,6 +274,28 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Special Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""615fec49-08a9-40d8-b904-27848b96a349"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33c7ee27-f41d-4033-aa89-bbf544bdd8ab"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -693,6 +724,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         m_Player_Defense = m_Player.FindAction("Defense", throwIfNotFound: true);
         m_Player_CameraMouse = m_Player.FindAction("Camera Mouse", throwIfNotFound: true);
         m_Player_SpecialAttack = m_Player.FindAction("Special Attack", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         // Player UI
         m_PlayerUI = asset.FindActionMap("Player UI", throwIfNotFound: true);
         m_PlayerUI_Submit = m_PlayerUI.FindAction("Submit", throwIfNotFound: true);
@@ -771,6 +803,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Defense;
     private readonly InputAction m_Player_CameraMouse;
     private readonly InputAction m_Player_SpecialAttack;
+    private readonly InputAction m_Player_Attack;
     public struct PlayerActions
     {
         private @PlayerControl m_Wrapper;
@@ -782,6 +815,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         public InputAction @Defense => m_Wrapper.m_Player_Defense;
         public InputAction @CameraMouse => m_Wrapper.m_Player_CameraMouse;
         public InputAction @SpecialAttack => m_Wrapper.m_Player_SpecialAttack;
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -812,6 +846,9 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
             @SpecialAttack.started += instance.OnSpecialAttack;
             @SpecialAttack.performed += instance.OnSpecialAttack;
             @SpecialAttack.canceled += instance.OnSpecialAttack;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -837,6 +874,9 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
             @SpecialAttack.started -= instance.OnSpecialAttack;
             @SpecialAttack.performed -= instance.OnSpecialAttack;
             @SpecialAttack.canceled -= instance.OnSpecialAttack;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -987,6 +1027,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         void OnDefense(InputAction.CallbackContext context);
         void OnCameraMouse(InputAction.CallbackContext context);
         void OnSpecialAttack(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
     public interface IPlayerUIActions
     {
