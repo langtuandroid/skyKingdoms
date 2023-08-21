@@ -1,5 +1,6 @@
 ﻿using Managers;
 using Player;
+using Service;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -52,7 +53,7 @@ public class Collectible : MonoBehaviour
         if (collectEffect)
             Instantiate(collectEffect, transform.position, Quaternion.identity);
 
-        MyGameManager.Instance.CollectGem(CollectibleType);
+        ServiceLocator.GetService<MyGameManager>().CollectGem(CollectibleType);
 
         Destroy(gameObject);
     }

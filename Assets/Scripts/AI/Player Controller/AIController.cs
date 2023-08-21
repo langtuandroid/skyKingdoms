@@ -1,5 +1,6 @@
 using System.Collections;
 using Managers;
+using Service;
 using UnityEngine;
 
 namespace AI.Player_Controller
@@ -121,7 +122,7 @@ namespace AI.Player_Controller
         {
             yield return new WaitForSeconds(3f);
 
-            MyDialogueManager.Instance.HideDialogBox();
+            ServiceLocator.GetService<MyDialogueManager>().HideDialogBox();
 
             StartCoroutine(CanStart());
         }

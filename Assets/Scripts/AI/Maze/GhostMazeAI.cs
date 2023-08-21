@@ -1,5 +1,6 @@
 using Managers;
 using Player;
+using Service;
 using UnityEngine;
 
 public class GhostMazeAI : MonoBehaviour
@@ -89,7 +90,7 @@ public class GhostMazeAI : MonoBehaviour
     private void ResetGame()
     {
         SetRandomPatrolDestination();
-        MyGameManager.Instance.GameOver();
+        ServiceLocator.GetService<MyGameManager>().GameOver();
     }
 
     private void SetRandomPatrolDestination()

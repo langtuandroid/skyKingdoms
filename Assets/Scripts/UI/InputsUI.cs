@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using Managers;
 using Service;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace UI
 {
@@ -31,13 +29,9 @@ namespace UI
             ServiceLocator.GetService<MyInputManager>().anyAction.performed -= OnAny;
         }
 
-        private void Awake()
-        {
-            ServiceLocator.GetService<MyInputManager>().UIInputs();
-        }
-
         private void Start()
         {
+            ServiceLocator.GetService<MyInputManager>().UIInputs();
             _maxOptions = optionList.Count;
         }
 
@@ -68,7 +62,7 @@ namespace UI
         
         protected virtual void OnSubmit(InputAction.CallbackContext context)
         {
-       
+            
         }
         
         private void ShowIcon(int option)

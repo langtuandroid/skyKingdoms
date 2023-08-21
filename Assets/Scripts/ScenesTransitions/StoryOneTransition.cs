@@ -1,5 +1,6 @@
 using System;
 using Managers;
+using Service;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,13 +28,12 @@ public class StoryOneTransition : MonoBehaviour
                 if (!other.CompareTag(Constants.PLAYER) || textShowed || !CanCheck) return;
                 textShowed = true;
     
-                MyDialogueManager.Instance.NewOptionText(Text_Story_1.OptionText, Constants.DRAGON, "", "", true);
+                ServiceLocator.GetService<MyDialogueManager>().NewOptionText(Text_Story_1.OptionText, Constants.DRAGON, "", "", true);
                 break;
         }
     }
     
     
-
     private void OnTriggerExit(Collider other)
     {
         textShowed = false;

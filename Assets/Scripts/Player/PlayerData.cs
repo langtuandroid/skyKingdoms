@@ -13,11 +13,14 @@ public class PlayerData : MonoBehaviour
         set => _playerSO = value;
     }
 
-    public void PlayerInstantation()
+    public void PlayerInstantation(Transform playerInitialPosition = null)
     {
+        if(playerInitialPosition == null) 
+            playerInitialPosition.position = Vector3.zero;
+        
         if(_playerSO.player == "B")
-            Instantiate( _playerPrefabBoy, new Vector3(0f, 0f, 0f), Quaternion.identity );
+            Instantiate( _playerPrefabBoy, playerInitialPosition.position, Quaternion.identity );
         else if (_playerSO.player == "G")
-            Instantiate( _playerPrefabGirl, new Vector3(0f, 0f, 0f), Quaternion.identity );
+            Instantiate( _playerPrefabGirl, playerInitialPosition.position, Quaternion.identity );
     }
 }

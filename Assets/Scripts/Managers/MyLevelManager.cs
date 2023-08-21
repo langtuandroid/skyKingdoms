@@ -48,18 +48,18 @@ namespace Managers
                 {
                     case "level1":
                         canStart = false;
-                        MyDialogueManager.Instance.TextLevel("Level1");
+                        ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level1");
                         Gem_Level1.SetActive(false);
                         canCheck = true;
                         break;
                     case "level2":
                         canStart = false;
-                        MyDialogueManager.Instance.TextLevel("Level2");
+                        ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level2");
                         break;
                     //Boss
                     case "level3":
                         canStart = false;
-                        MyDialogueManager.Instance.TextLevel("Level3");
+                        ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level3");
                         Gem_Level_Boss.SetActive(false);
                         canCheck = true;
                         break;
@@ -68,14 +68,18 @@ namespace Managers
                         if (backToScene)
                         {
                             backToScene = false;
-                            var position = GameObject.FindWithTag("BackPosition").GetComponent<Transform>()
-                                .position;
+                            var position = GameObject.FindWithTag("BackPosition")
+                                .GetComponent<Transform>().position;
                             //BoyController.Instance.SetPosition(position);
                         }
 
+                        ServiceLocator.GetService<MyDialogueManager>().PlayerControl = false;
                         //TODO null reference
-                        StoryOneTransition.Instance.CanCheckDialogueOptions();
-                        MyGameManager.ResumePlayerMovement();
+                        //StoryOneTransition.Instance.CanCheckDialogueOptions();
+                        //MyGameManager.ResumePlayerMovement();
+                        break;
+                    case "Story_0":
+                        ServiceLocator.GetService<MyDialogueManager>().PlayerControl = false;
                         break;
                 }
             }
@@ -105,9 +109,9 @@ namespace Managers
             canStart = start;
         }
 
-        public void StartLevel()
+        public void StartLevel(Transform playerInitialPosition = null)
         {
-            ServiceLocator.GetService<PlayerData>().PlayerInstantation();
+            ServiceLocator.GetService<PlayerData>().PlayerInstantation(playerInitialPosition);
         }
         
         private void CheckEnemyCounter()

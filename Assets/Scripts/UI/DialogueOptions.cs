@@ -67,8 +67,9 @@ namespace UI
 
         private void OnSubmit(InputAction.CallbackContext context)
         {
-            Options.SetActive(false);
             ServiceLocator.GetService<MyDialogueManager>().HideDialogBox();
+            Options.SetActive(false);
+            OptionsCharacter.SetActive(true);
         }
 
         private void ShowIcon(int option)

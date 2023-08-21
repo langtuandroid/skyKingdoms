@@ -41,4 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test.unity
     guid: aeac97dcb078d4cac8ffc0d7f2f0472f
+  - enabled: 1
+    path: Assets/Scenes/Cinematic Scenes/Story_1.unity
+    guid: b1bb5c9a64e0c4fc3aa261031080f51e
   m_configObjects: {}

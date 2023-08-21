@@ -1,5 +1,6 @@
 using System.Collections;
 using Managers;
+using Service;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,7 +26,7 @@ namespace AI.Menu
                 timer--;
             }
             
-            MyGameManager.Instance.AIDemoControl = true;
+            ServiceLocator.GetService<MyGameManager>().AIDemoControl = true;
             SceneManager.LoadScene("Level1");
         }
     }

@@ -1,4 +1,3 @@
-using System;
 using Managers;
 using Service;
 using UI;
@@ -11,9 +10,16 @@ namespace Player
     {
         [SerializeField] GameObject Boy;
         [SerializeField] GameObject Girl;
-        
+
+        private Animator _animatorLeo;
+        private Animator _animatorMagen;
+
+        private bool _canChange;
+
         void Start()
         {
+            _animatorLeo = Boy.GetComponent<Animator>();
+            _animatorMagen = Girl.GetComponent<Animator>();
             Girl.transform.rotation = Quaternion.Euler(0f, 00f, 0f);
             Boy.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
             ServiceLocator.GetService<MyDialogueManager>().NewOptionText(Text_ChooseCharacter.OptionText, "", Text_ChooseCharacter.OptionA, Text_ChooseCharacter.OptionB, true);
@@ -23,13 +29,19 @@ namespace Player
         {
             if (ActualOption == 0)
             {
+                if (_canChange) return;
                 Girl.transform.rotation = Quaternion.Euler(0f, 00f, 0f);
                 Boy.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                _animatorLeo.SetTrigger("shoot");
+                _canChange = true;
             }
             else
             {
+                if (!_canChange) return;
                 Girl.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                 Boy.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                _animatorMagen.Play("Attack01_SwordAndShiled");
+                _canChange = false;
             }
         }
 
@@ -43,8 +55,8 @@ namespace Player
             else 
                 ServiceLocator.GetService<PlayerData>().PlayerSO.player = "G";
             
-            //ServiceLocator.GetService<LoadScreenManager>().LoadScene("Story_0");
-            ServiceLocator.GetService<LoadScreenManager>().LoadScene("Test");
+            ServiceLocator.GetService<LoadScreenManager>().LoadScene("Story_0");
+            //ServiceLocator.GetService<LoadScreenManager>().LoadScene("Test");
         }
     }
 }

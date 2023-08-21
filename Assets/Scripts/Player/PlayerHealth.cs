@@ -1,5 +1,6 @@
 using System.Collections;
 using Managers;
+using Service;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            MyGameManager.Instance.GameOver();
+            ServiceLocator.GetService<MyGameManager>().GameOver();
         }
         else
         {

@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace Managers
 {
+    [DefaultExecutionOrder(-5)]
     public class MyInputManager : MonoBehaviour
     {
         public InputActionAsset playerInput;
@@ -111,7 +112,7 @@ namespace Managers
                 specialAttackAction.Disable();
             
             if (attackAction != null)
-                attackAction.Enable();
+                attackAction.Disable();
 
             if (uiMovementAction != null)
                 uiMovementAction.Enable();

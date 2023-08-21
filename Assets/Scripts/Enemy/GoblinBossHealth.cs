@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using Managers;
+using Service;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -38,7 +39,7 @@ public class GoblinBossHealth : MonoBehaviour
     
     private void Update()
     {
-        if(MyGameManager.Instance.gameOver)
+        if(ServiceLocator.GetService<MyGameManager>().gameOver)
             GameOver();
     }
     

@@ -1,12 +1,12 @@
-using System;
 using System.Collections;
 using Cinemachine;
 using Managers;
 using Service;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DollyTrack_Story_0 : MonoBehaviour
+public class DollyTrack_Story_0 : InputsUI
 {
     #region VARIABLES
     public CinemachineDollyCart dollyCartSeq1;
@@ -36,14 +36,11 @@ public class DollyTrack_Story_0 : MonoBehaviour
 
     #endregion
 
-    private void OnEnable()
+    protected override void OnSubmit(InputAction.CallbackContext context)
     {
-        ServiceLocator.GetService<MyInputManager>().submitAction.performed += LoadScene;
-    }
-
-    private void OnDisable()
-    {
-        ServiceLocator.GetService<MyInputManager>().submitAction.performed -= LoadScene;
+        base.OnSubmit(context);
+        
+        LoadScene();
     }
 
     void Start()
@@ -114,7 +111,7 @@ public class DollyTrack_Story_0 : MonoBehaviour
         ServiceLocator.GetService<LoadScreenManager>().LoadScene("Story_1");
     }
 
-    private void LoadScene(InputAction.CallbackContext context)
+    private void LoadScene()
     {
         ServiceLocator.GetService<MyDialogueManager>().HideDialogBox();
         ServiceLocator.GetService<LoadScreenManager>().LoadScene("Story_1");

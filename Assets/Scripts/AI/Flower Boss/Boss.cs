@@ -1,6 +1,7 @@
 using System.Collections;
 using Managers;
 using Player;
+using Service;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
@@ -97,7 +98,7 @@ public class Boss : MonoBehaviour
     {
         if (!fight) return;
         _currentPhase.Execute(this);
-        if(MyGameManager.Instance.gameOver)
+        if(ServiceLocator.GetService<MyGameManager>().gameOver)
             GameOver();
     }
 

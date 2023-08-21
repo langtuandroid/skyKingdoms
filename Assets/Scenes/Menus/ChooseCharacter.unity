@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.112629965, g: 0.28143328, b: 0.70868975, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -529,6 +529,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2857421375095753372, guid: 28eaf53c28bf04b4387f6dae28dedddd, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ea653714e08828947a1e0976b7238c65, type: 2}
     - target: {fileID: 2858501295864084502, guid: 28eaf53c28bf04b4387f6dae28dedddd, type: 3}
       propertyPath: spellSpawn
       value: 
@@ -647,5 +651,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9161441389266266709, guid: 255da524acc194b04abb730b050b4022, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ea653714e08828947a1e0976b7238c65, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 255da524acc194b04abb730b050b4022, type: 3}

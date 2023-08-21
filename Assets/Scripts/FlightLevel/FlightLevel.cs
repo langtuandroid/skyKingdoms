@@ -1,4 +1,5 @@
 using Managers;
+using Service;
 using UnityEngine;
 
 public class FlightLevel : MonoBehaviour
@@ -59,7 +60,7 @@ public class FlightLevel : MonoBehaviour
             PlayerUI.Instance.UpdateTimeLeft(0);
             ScoreCanvas.SetActive(false);
             ScoreCanvas3D.SetActive(false);
-            MyGameManager.Instance.GameOver();
+            ServiceLocator.GetService<MyGameManager>().GameOver();
         }
         else
         {

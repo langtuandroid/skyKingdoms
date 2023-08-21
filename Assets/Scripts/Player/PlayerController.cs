@@ -60,11 +60,6 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    private void Start()
-    {
-        CanMove = true;
-    }
-
     private void Update()
     {
         if (!CanMove) return;

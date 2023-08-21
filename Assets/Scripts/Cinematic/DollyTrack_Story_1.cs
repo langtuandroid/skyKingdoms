@@ -1,39 +1,37 @@
-using System;
 using System.Collections;
 using Cinemachine;
-using DG.Tweening;
 using Managers;
-using Player;
 using Service;
+using UI;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.InputSystem;
 
-public class DollyTrack_Story_1 : MonoBehaviour
+public class DollyTrack_Story_1 : InputsUI
 {
     #region VARIABLES
     public CinemachineDollyCart dollyCartSeq1;
     public CinemachineDollyCart dollyCartSeq2;
     public CinemachineVirtualCamera finalCam;
-    [FormerlySerializedAs("leoCam")] 
-    public CinemachineFreeLook playerCam;
 
-    [FormerlySerializedAs("Player")]
-    [FormerlySerializedAs("Leo")] 
-    [Header("Characters")]
     public GameObject player;
+    public CinemachineFreeLook playerCam;
     private Animator _anim;
 
     private bool btnPresed = false;
+
+    private MyDialogueManager _myDialogueManager;
+    
     #endregion
-
-    private void Awake()
-    {
-        _anim = player.GetComponentInChildren<Animator>();
-    }
-
+    
     private void Start()
     {
-        if (MyLevelManager.Instance.backToScene)
+        ServiceLocator.GetService<MyLevelManager>().StartLevel(dollyCartSeq2.gameObject.transform);
+        _myDialogueManager = ServiceLocator.GetService<MyDialogueManager>();
+        player = GameObject.FindWithTag(Constants.PLAYER).gameObject;
+        player.transform.SetParent(dollyCartSeq2.transform);
+        _anim = player.GetComponent<Animator>();
+        
+        if (ServiceLocator.GetService<MyLevelManager>().backToScene)
         {
             GameControl();
             SetDragonPosition();
@@ -49,109 +47,111 @@ public class DollyTrack_Story_1 : MonoBehaviour
     
             _anim.SetBool("walk", false);
         
-            StartCoroutine(DollyCart());   
+            StartCoroutine(DollyCart());
         }
     }
-
-    private void Update()
-    {
-        if (ServiceLocator.GetService<MyInputManager>().AnyBtnPressed)
-        {
-            GameControl();
-            SetDragonPosition();
-        }
-    }
-
+    
     private IEnumerator DollyCart()
     {
-        MyDialogueManager.Instance.Init(); 
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        Debug.Log("Ya he entrado en el dolly cart");
+        _myDialogueManager.Init(); 
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
 
         //**************************************Cambio de camara
         finalCam.enabled = true;
-        //******* Leo Camina acercandose al Dragon
+        //******* Player Camina acercandose al Dragon
         dollyCartSeq2.m_Speed = 2;
         _anim.SetBool("walk", true);
         yield return new WaitForSeconds(2.5f);
         dollyCartSeq2.m_Speed = 0;
         _anim.SetBool("walk", false);
-        //********* Leo se para
+        //********* Player se para
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
         
-        MyDialogueManager.Instance.NextText();
-        yield return new WaitUntil(() => MyDialogueManager.Instance.CanContinue());
+        _myDialogueManager.NextText();
+        yield return new WaitUntil(() => _myDialogueManager.CanContinue());
         yield return new WaitForSeconds(1);
 
         GameControl();
     }
 
-    public void GameControl()
+    private void GameControl()
     {
         StopAllCoroutines();
         //Dragon.transform.DOMove(DragonIdlePosition.position, 1f).SetEase(Ease.Linear).Play();
-        MyDialogueManager.Instance.StopStory();
-        playerCam.LookAt = player.GetComponentInChildren<Transform>();
-        playerCam.Follow = player.GetComponentInChildren<Transform>();
+        _myDialogueManager.StopStory();
+        playerCam.LookAt = player.GetComponent<Transform>();
+        playerCam.Follow = player.GetComponent<Transform>();
         playerCam.enabled = true;
         finalCam.enabled = false;
-        MyLevelManager.Instance.Level("Story_1", true);
+        ServiceLocator.GetService<MyLevelManager>().Level("Story_1", true);
+        player.GetComponent<PlayerController>().CanMove = true;
+        ServiceLocator.GetService<MyInputManager>().PlayerInputs();
     }
 
     private void SetDragonPosition()
     {
         dollyCartSeq1.m_Position = dollyCartSeq1.m_Path.PathLength;
+    }
+    
+    protected override void OnSubmit(InputAction.CallbackContext context)
+    {
+        base.OnSubmit(context);
+        
+          GameControl();
+          SetDragonPosition();
     }
 
 }

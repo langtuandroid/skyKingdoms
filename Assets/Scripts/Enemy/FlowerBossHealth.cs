@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Managers;
+using Service;
 
 public class FlowerBossHealth : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class FlowerBossHealth : MonoBehaviour
     
     private void Update()
     {
-        if(MyGameManager.Instance.gameOver)
+        if(ServiceLocator.GetService<MyGameManager>().gameOver)
             GameOver();
     }
     

@@ -4,15 +4,14 @@ using Doublsb.Dialog;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Managers
 {
-    public class MyDialogueManager : MonoBehaviour
+    public class MyDialogueManager : InputsUI
     {
-        public static MyDialogueManager Instance;
-
         [Tooltip("Activar si el player tiene el control de la escena.")]
         public bool PlayerControl;
         public int Step => step;
@@ -57,6 +56,7 @@ namespace Managers
 
         public void Init()
         {
+            step = 0;
             currentScene = GetActiveStoryScene();
             Type storyType = Type.GetType(currentScene);
             if (storyType != null)
@@ -149,7 +149,6 @@ namespace Managers
         }
 
         // Para cuando la cinemática controla los cambios de texto
-
         public bool CanContinue()
         {
             int asteriskIndex = currentText.IndexOf("*");
@@ -166,8 +165,10 @@ namespace Managers
         }
         
         // Player Input Action Submit
-        public void OnBtnSubmit()
+        protected override void OnSubmit(InputAction.CallbackContext context)
         {
+            base.OnSubmit(context);
+            
             if (PlayerControl)
             {
                 if (nextBtn.activeSelf && !isSubmitBtn)
