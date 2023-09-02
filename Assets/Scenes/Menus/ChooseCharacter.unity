@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.112629965, g: 0.28143328, b: 0.70868975, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -411,6 +411,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3990135320986360113, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133452728481161044, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13.558481
+      objectReference: {fileID: 0}
     - target: {fileID: 5309263002797180991, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -529,37 +537,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2857421375095753372, guid: 28eaf53c28bf04b4387f6dae28dedddd, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: ea653714e08828947a1e0976b7238c65, type: 2}
-    - target: {fileID: 2858501295864084502, guid: 28eaf53c28bf04b4387f6dae28dedddd, type: 3}
-      propertyPath: spellSpawn
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2858501295864084502, guid: 28eaf53c28bf04b4387f6dae28dedddd, type: 3}
-      propertyPath: spellPrefab
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2858501295864084502, guid: 28eaf53c28bf04b4387f6dae28dedddd, type: 3}
-      propertyPath: defensePrefab
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2858501295864084502, guid: 28eaf53c28bf04b4387f6dae28dedddd, type: 3}
-      propertyPath: OffsetCollider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2858501295864084502, guid: 28eaf53c28bf04b4387f6dae28dedddd, type: 3}
-      propertyPath: specialSpellSpawn
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2858501295864084502, guid: 28eaf53c28bf04b4387f6dae28dedddd, type: 3}
-      propertyPath: specialAttackPrefab
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3127451184615302524, guid: 28eaf53c28bf04b4387f6dae28dedddd, type: 3}
       propertyPath: m_Name
-      value: Violet
+      value: Magen
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28eaf53c28bf04b4387f6dae28dedddd, type: 3}
@@ -575,34 +555,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5743874870832935209, guid: 255da524acc194b04abb730b050b4022, type: 3}
-      propertyPath: spellSpawn
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743874870832935209, guid: 255da524acc194b04abb730b050b4022, type: 3}
-      propertyPath: spellPrefab
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743874870832935209, guid: 255da524acc194b04abb730b050b4022, type: 3}
-      propertyPath: defensePrefab
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743874870832935209, guid: 255da524acc194b04abb730b050b4022, type: 3}
-      propertyPath: OffsetCollider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743874870832935209, guid: 255da524acc194b04abb730b050b4022, type: 3}
-      propertyPath: specialSpellSpawn
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743874870832935209, guid: 255da524acc194b04abb730b050b4022, type: 3}
-      propertyPath: specialAttackPrefab
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743874870832935210, guid: 255da524acc194b04abb730b050b4022, type: 3}
-      propertyPath: _colliderOffset
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8350399072458802613, guid: 255da524acc194b04abb730b050b4022, type: 3}
       propertyPath: m_Name
       value: Leo
@@ -651,9 +603,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9161441389266266709, guid: 255da524acc194b04abb730b050b4022, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: ea653714e08828947a1e0976b7238c65, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 255da524acc194b04abb730b050b4022, type: 3}

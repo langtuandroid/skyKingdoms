@@ -1,15 +1,36 @@
-public class Constants
+namespace Utils
 {
-    public const string ENEMY_TAG = "Enemy";
-    public const string PLATFORM_TAG = "Platform";
-    public const string TREE_TAG = "Tree";
-    public const string GEM_TAG = "Gem";
-    public const string GROUND_TAG = "Ground";
+    public abstract class Constants
+    {
+        public static string Character = "";
     
+        public const string EnemyTag = "Enemy";
+        public const string PlatformTag = "Platform";
+        public const string TreeTag = "Tree";
+        public const string GemTag = "Gem";
+        public const string GroundTag = "Ground";
     
-    public const string ATTACK_TRIGGER = "shoot";
-    public const string PLAYER = "Player";
-    public const string DRAGON = "VRAZABARD";
+        
+        public const string Player = "Player";
+        public const string Dragon = "VRAZABARD";
     
-    public const string LAYER_INTERACTABLE = "Interactable";
+        public const string LayerInteractable = "Interactable";
+        public const string LayerEnemy = "Enemy";
+    
+        public const string AnimatorWalk = "walk";
+        public const string AnimatorSpeed = "speed";
+        public const string AnimatorJump = "jump";
+        public const string AnimatorShoot = "shoot";
+        public const string AnimatorDoubleJump = "doubleJump";
+        public const string AnimatorPlayJump = "JumpStart_Normal_InPlace_SwordAndShield";
+        public const string AnimatorLand = "land";
+        public const string AnimatorIdleNoWeapon = "idleNoWeapon";
+        public const string AnimatorIdleBattle = "idleBattle";
+        
+        public const string AnimatorAttack01 = "Attack01_SwordAndShiled";
+        public const string AnimatorAttackCombo = "physicalAttackCombo";
+        
+        
+        public const string LeoSword = "OHS03";
+    }
 }

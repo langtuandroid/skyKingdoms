@@ -31,7 +31,6 @@ namespace UI
 
         private void Start()
         {
-            ServiceLocator.GetService<MyInputManager>().UIInputs();
             _maxOptions = optionList.Count;
         }
 

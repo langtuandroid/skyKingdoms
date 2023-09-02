@@ -18,14 +18,8 @@ public class PlayerAttacksCoolDown : MonoBehaviour
     private void Start()
     {
         // Obtener la referencia al controlador de enfriamientos apropiado
-        if (GetComponent<BoyController>().gameObject.activeSelf)
-        {
-            attackCooldownController = GetComponent<BoyController>();
-        }
-        else if (GetComponent<AIController>().gameObject.activeSelf)
-        {
-            attackCooldownController = GetComponent<AIController>();
-        }
+
+
     }
 
     private void Update()

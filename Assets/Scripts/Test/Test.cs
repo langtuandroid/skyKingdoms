@@ -8,8 +8,8 @@ namespace Test
     {
         void Start()
         {
-            //ServiceLocator.GetService<MyInputManager>().PlayerInputs();
-            ServiceLocator.GetService<MyLevelManager>().StartLevel();
+            ServiceLocator.GetService<PlayerData>().PlayerInstantation();
+            ServiceLocator.GetService<MyGameManager>().ResumePlayerMovement();
         }
     }
 }

@@ -59,8 +59,6 @@ public class MazeGenerator : MonoBehaviour //Hunt-and-Kill algorithm
         GenerateMaze(UnvisitedCells.Values.First());
         
         FindPaths();
-
-        MyLevelManager.Instance.canStart = true;
     }
     
     private void FindPaths()

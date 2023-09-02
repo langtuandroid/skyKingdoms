@@ -1,100 +1,165 @@
-using System;
 using System.Collections;
+using Attacks;
+using Cinemachine;
 using Managers;
+using MoreMountains.Feedbacks;
+using MoreMountains.Feel;
+using Player;
 using Service;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    #region Variables
     [Header("CONFIGURATION\n")]
     [Tooltip("Velocidad del personaje.")]
     [SerializeField]
-    private float speed;
+    private float _speed;
 
     [Tooltip("Rotación del personaje.")]
     [SerializeField]
-    private float rotationSpeed;
+    private float _rotationSpeed;
 
     [Tooltip("Fuerza del salto.")]
     [SerializeField]
-    private float jumpHeight;
+    private float _jumpHeight;
     
     [Tooltip("Máscara de capa utilizada para verificar si el personaje está en el suelo.")]
     [SerializeField]
-    private LayerMask groundLayerMask;
+    private LayerMask _groundLayerMask;
 
     #region REFERENCES
-    private Rigidbody rb;
-    private Animator animator;
-    private Vector3 movement;
+    private Rigidbody _rb;
+    private Animator _animator;
+    private CinemachineFreeLook _camera;
+    private Vector3 _movement;
+    private Interaction _interaction;
+    private SwordAttack _swordAttack;
+    private BounceFeedbacks _bounceFeedbacks;
+    
+    private MyInputManager _gameInputs;
+    private Jump _jump;
+    private PlayerAnimator _playerAnimator;
     #endregion
 
     #region JUMP VARIABLES
     public float groundCheckDistance = 0.5f;
-    private bool isJumping;
-    private bool isGrounded = true;
+    private bool _isJumping = false;
+    private bool _isGrounded = true;
+    private bool _isDoubleJump = false;
+    private int _jumpCount;
+    #endregion
+    
+    #region PHYSICAL ATTACK VARIABLES
+
+    private int _actualPhysicaAttack = 1;
+
     #endregion
 
     public bool CanMove = false;
-
-    private void OnEnable()
-    {
-        ServiceLocator.GetService<MyInputManager>().movementAction.performed += OnMovementPerformed;
-        ServiceLocator.GetService<MyInputManager>().movementAction.canceled += OnMovementCanceled;
-        ServiceLocator.GetService<MyInputManager>().attackAction.performed += OnAttackPerformed;
-        ServiceLocator.GetService<MyInputManager>().jumpAction.performed += OnJumpPerformed;
-    }
+    #endregion
     
-    private void OnDisable()
+    private void OnDestroy()
     {
-        ServiceLocator.GetService<MyInputManager>().movementAction.performed -= OnMovementPerformed;
-        ServiceLocator.GetService<MyInputManager>().movementAction.canceled -= OnMovementCanceled;
-        ServiceLocator.GetService<MyInputManager>().attackAction.performed -= OnAttackPerformed;
-        ServiceLocator.GetService<MyInputManager>().jumpAction.performed -= OnJumpPerformed;
+        _gameInputs.movementAction.performed -= OnMovementPerformed;
+        _gameInputs.movementAction.canceled -= OnMovementCanceled;
+        _gameInputs.attackAction.performed -= OnAttackPerformed;
+        _gameInputs.defenseAction.performed -= OnDefenseOrInteractPerformed;
+        _gameInputs.jumpAction.performed -= OnJumpPerformed;
     }
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        animator = GetComponentInChildren<Animator>();
+        //Components
+        _rb = GetComponent<Rigidbody>();
+        _animator = GetComponentInChildren<Animator>();
+        _interaction = GetComponent<Interaction>();
+        _swordAttack = GetComponentInChildren<SwordAttack>();//todo diferenciar espadas
+        _camera = GameObject.FindGameObjectWithTag("VirtualCamera").GetComponent<CinemachineFreeLook>();
+        
+        //Feel
+        _bounceFeedbacks = GetComponent<BounceFeedbacks>();
+        _bounceFeedbacks.ChargeFeedbacks = GameObject.Find("ChargeFeedbacks").GetComponent<MMFeedbacks>();
+        _bounceFeedbacks.JumpFeedbacks = GameObject.Find("JumpFeedbacks").GetComponent<MMFeedbacks>();
+        _bounceFeedbacks.LandingFeedbacks = GameObject.Find("LandingFeedbacks").GetComponent<MMFeedbacks>();
+        
+        //Scripts
+        _jump = new Jump();
+        _playerAnimator = new PlayerAnimator();
     }
+    
+#if UNITY_EDITOR //todo metodo que hay que llamar desde el flujo principal
+    private bool _isInitialized;
+    private void Start()
+    {
+        if (!_isInitialized)
+            Init();
+    }
+#endif
 
+    public void Init()
+    {
+        // INPUTS
+        _gameInputs = ServiceLocator.GetService<MyInputManager>();   
+        _gameInputs.movementAction.performed += OnMovementPerformed;
+        _gameInputs.movementAction.canceled += OnMovementCanceled;
+        _gameInputs.attackAction.performed += OnAttackPerformed;
+        _gameInputs.defenseAction.performed += OnDefenseOrInteractPerformed;
+        _gameInputs.jumpAction.performed += OnJumpPerformed;
+        
+        //JUMP
+        _jump.Init(_rb);
+        
+        //ANIMATOR
+        _playerAnimator.Init(_animator);
+        
+        //CAMERA
+        //CameraController _cam = ServiceLocator.GetService<CameraController>(); 
+        //if(_cam.isActiveAndEnabled) _cam.freeLookCamera.Follow = transform;
+        _camera.Follow = transform;
+        _camera.LookAt = transform;
+
+#if UNITY_EDITOR
+        CanMove = true;
+#endif
+    }
+    
     private void Update()
     {
         if (!CanMove) return;
+        
         CheckGrounded();
     }
 
     private void FixedUpdate()
     {
         if (!CanMove) return;
+        
         FixedControls();
     }
 
     private void LateUpdate()
     {
-        animator.SetFloat("speed", movement.magnitude);
-        animator.SetBool("walk", (movement.magnitude > 0f));
-        animator.SetBool("jump", isJumping);
-        animator.SetBool("land", isGrounded);
+       _playerAnimator.PlayAnimation(_movement, _isJumping, _isGrounded);
     }
 
     #region MOVEMENT
-    public void OnMovementPerformed(InputAction.CallbackContext callbackContext)
+
+    private void OnMovementPerformed(InputAction.CallbackContext callbackContext)
     {
-        movement = callbackContext.ReadValue<Vector2>();
+        _movement = callbackContext.ReadValue<Vector2>();
     }
 
-    public void OnMovementCanceled(InputAction.CallbackContext callbackContext)
+    private void OnMovementCanceled(InputAction.CallbackContext callbackContext)
     {
-        movement = Vector2.zero;
+        _movement = Vector2.zero;
     }
 
-    void FixedControls()
+    private void FixedControls()
     {
         // Movimiento del personaje
-        Vector3 direction = new Vector3(movement.x, 0, movement.y);
+        Vector3 direction = new Vector3(_movement.x, 0, _movement.y);
 
         // Calcula la dirección del movimiento relativa a la cámara
         Vector3 relativeDirection = Camera.main.transform.TransformDirection(direction);
@@ -102,14 +167,21 @@ public class PlayerController : MonoBehaviour
         relativeDirection.Normalize();
 
         // MOVIMIENTO
-        Vector3 move = relativeDirection * speed * Time.deltaTime;
-        rb.MovePosition(rb.position + move);
+        Vector3 move = relativeDirection * _speed * Time.deltaTime;
+        _rb.MovePosition(_rb.position + move);
 
         // ROTACION
         if (direction != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(relativeDirection, Vector3.up);
-            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            _rb.rotation = Quaternion.Slerp(_rb.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+        }
+        
+        //CAIDA DESDE SALTO
+        if (!_isGrounded && _rb.velocity.y < 0)
+        {
+            Debug.Log("Caigoooooooo");
+            _rb.AddForce(Vector3.down * 2, ForceMode.Force);
         }
     }
     #endregion
@@ -117,41 +189,56 @@ public class PlayerController : MonoBehaviour
     #region ATTACK
     private void OnAttackPerformed(InputAction.CallbackContext obj)
     {
-        animator.SetTrigger("attack");
+        if (_actualPhysicaAttack > 4) _actualPhysicaAttack = 1;
+        _swordAttack.Attack();
+        _playerAnimator.PlaySwordAttack(_actualPhysicaAttack);
+        _actualPhysicaAttack++;
+    }
+
+    //Método que llamamos desde el animator para reseteo de ataque físico
+    private void ResetPhysicalAttack()
+    {
+        _swordAttack.ResetPhysicalAttackCollisions();
     }
     #endregion
 
     #region JUMP
+    
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
-        if (!isJumping && isGrounded)
+        if (_isGrounded && !_isJumping)
         {
-            isJumping = true;
-            isGrounded = false;
-
-            animator.Play("JumpStart_Normal_InPlace_SwordAndShield");
-            
-            float jumpForce = Mathf.Sqrt(2f * jumpHeight * Physics.gravity.magnitude);
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            rb.velocity = new Vector3(rb.velocity.x, jumpHeight, rb.velocity.z);
+            _bounceFeedbacks.PlayJump();
+            _isJumping = true;
+            _isDoubleJump = false;
+            _playerAnimator.Jump();
+            _jump.JumpAction(_jumpHeight);
+        }
+        else if(!_isDoubleJump)
+        {
+            _bounceFeedbacks.PlayCharge();
+            _isDoubleJump = true;
+            _playerAnimator.DoubleJump();
+            _jump.DoubleJumpAction(_jumpHeight);
         }
     }
+
     
     private void CheckGrounded()
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance, groundLayerMask))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance, _groundLayerMask))
         {
-            isGrounded = true;
+            _isGrounded = true;
         }
         
-        if (rb.velocity.y != 0f && !isGrounded)
+        if (_rb.velocity.y != 0f && !_isGrounded)
         {
-            isJumping = true;
-        } else if (rb.velocity.y == 0f && isGrounded)
+            _isJumping = true;
+        } else if (_rb.velocity.y == 0f && _isGrounded)
         {
-            isJumping = false;
+            _isJumping = false;
         }
     }
     
@@ -159,23 +246,30 @@ public class PlayerController : MonoBehaviour
     {
         CanMove = false;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
 
         CanMove = true;
     }
     
     #endregion
     
+    private void OnDefenseOrInteractPerformed(InputAction.CallbackContext obj)
+    {
+        if(_interaction.CanInteract()) 
+            _interaction.Interact();
+        else 
+            Debug.Log("Aun no puedo usar la defensa");
+    }
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance, groundLayerMask))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance, _groundLayerMask))
         {
             Gizmos.DrawLine(hit.point, hit.point + hit.normal); 
             Gizmos.DrawSphere(hit.point, 0.1f);
         }
     }
-
 }

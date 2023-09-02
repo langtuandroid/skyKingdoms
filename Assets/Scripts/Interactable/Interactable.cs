@@ -8,7 +8,7 @@ namespace Interactable
         
         public void Interact()
         {
-       
+            Debug.Log("Estoy interactuando con el dragon");
         }
 
         public void ShowCanInteract(bool show)

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Generators;
 using UnityEngine;
+using Utils;
 using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
@@ -45,7 +46,7 @@ public class EnemySpawner : MonoBehaviour
                     bool isOnPlatform = false;
                     foreach (Collider platformCollider in platformColliders)
                     {
-                        if (platformCollider.CompareTag(Constants.PLATFORM_TAG))
+                        if (platformCollider.CompareTag(Constants.PlatformTag))
                         {
                             isOnPlatform = true;
                             break;

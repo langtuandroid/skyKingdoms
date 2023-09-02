@@ -1,7 +1,4 @@
 using System.Collections;
-using DG.Tweening;
-using JetBrains.Annotations;
-using Player;
 using Service;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,148 +7,137 @@ namespace Managers
 {
     public class MyLevelManager : MonoBehaviour
     {
-        #region VARIABLES
-        public static MyLevelManager Instance;
-
-        public bool canStart { get; set; }
-
-        private bool canCheck { get; set; }
-
+        public bool AIDemoControl;
         public int enemyCount { get; set; }
-
         public bool backToScene;
 
-        public int ActualDialogueResponse = -1;
-
-        private string actualLevel = "";
-        private bool flowerDefeated;
-        private bool goblinDefeated;
-
-        [CanBeNull]
         public GameObject Gem_Level1;
-        
-        [CanBeNull]
         public GameObject Gem_Level_Boss;
-        
-        [CanBeNull]
         public GameObject Goblin;
-        
-        [CanBeNull]
         public GameObject GoblinWeapon;
-        #endregion
-
-        private void Update() //Configuraciones que necesita cada escena
+        
+        public void StartLevel()
         {
-            if (canStart)
-            {
-                switch (actualLevel)
-                {
-                    case "level1":
-                        canStart = false;
-                        ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level1");
-                        Gem_Level1.SetActive(false);
-                        canCheck = true;
-                        break;
-                    case "level2":
-                        canStart = false;
-                        ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level2");
-                        break;
-                    //Boss
-                    case "level3":
-                        canStart = false;
-                        ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level3");
-                        Gem_Level_Boss.SetActive(false);
-                        canCheck = true;
-                        break;
-                    case "Story_1":
-                        canStart = false;
-                        if (backToScene)
-                        {
-                            backToScene = false;
-                            var position = GameObject.FindWithTag("BackPosition")
-                                .GetComponent<Transform>().position;
-                            //BoyController.Instance.SetPosition(position);
-                        }
-
-                        ServiceLocator.GetService<MyDialogueManager>().PlayerControl = false;
-                        //TODO null reference
-                        //StoryOneTransition.Instance.CanCheckDialogueOptions();
-                        //MyGameManager.ResumePlayerMovement();
-                        break;
-                    case "Story_0":
-                        ServiceLocator.GetService<MyDialogueManager>().PlayerControl = false;
-                        break;
-                }
-            }
-
-            if (!canCheck) return;
+            var sceneName = SceneManager.GetActiveScene().name;
             
-            switch (actualLevel)
+            switch (sceneName)
             {
-                case "level1":
-                    CheckEnemyCounter();
+                case "Cinematic":
+                    InitializeCinematic();
                     break;
-                case "level3" when !flowerDefeated:
-                    CheckFlowerBossLife();
+                case "Story_0":
+                    InitializeStory0();
+                    break;
+                case "Story_1":
+                    InitializeStory1();
+                    break;
+                case "Level1":
+                    InitializeLevel1();
+                    break;
+                case "Level2":
+                    InitializeLevel2();
                     break;
                 case "level3":
-                {
-                    if (flowerDefeated && !goblinDefeated)
-                        CheckGoblinBossLife();
+                    InitializeLevel3();
                     break;
-                }
+                case "Flight":
+                    ServiceLocator.GetService<MyAudioManager>().PlayMusic("flight");
+                    break;
+                case "BossBattle":
+                    ServiceLocator.GetService<MyAudioManager>().PlayMusic("boss");
+                    break;
+                case "TheEnd":
+                    ServiceLocator.GetService<MyAudioManager>().PlayMusic("theEnd");
+                    break;
             }
         }
         
-        public void Level(string level, bool start = false)
+        #region Cinematics
+        private void InitializeCinematic()
         {
-            actualLevel = level;
-            canStart = start;
-        }
-
-        public void StartLevel(Transform playerInitialPosition = null)
-        {
-            ServiceLocator.GetService<PlayerData>().PlayerInstantation(playerInitialPosition);
+            //ServiceLocator.GetService<PlayerController>().IdleNoWeapon = true;
+            ServiceLocator.GetService<MyAudioManager>().PlayMusic("Cinematic");   
         }
         
+        private void InitializeStory0()
+        {
+            //ServiceLocator.GetService<MyDialogueManager>().PlayerControl = false;
+            ServiceLocator.GetService<MyAudioManager>().PlayMusic("dungeon");
+        }
+        
+        private void InitializeStory1()
+        {
+            if (backToScene)
+            {
+                backToScene = false;
+                var backPosition = GameObject.FindWithTag("BackPosition")?.GetComponent<Transform>().position;
+                //BoyController.Instance.SetPosition(backPosition);
+            }
+
+            if (ServiceLocator.GetService<MyLevelManager>().backToScene) return;
+            
+            ServiceLocator.GetService<PlayerData>().PlayerInstantation();
+            ServiceLocator.GetService<MyAudioManager>().PlayMusic("town");
+            ServiceLocator.GetService<MyDialogueManager>().PlayerControl = false;
+        }
+        #endregion
+
+        #region Levels
+        private void InitializeLevel1()
+        {
+            ServiceLocator.GetService<PlayerData>().PlayerInstantation();
+            ServiceLocator.GetService<MyAudioManager>().PlayMusic("dayAmbient");
+            ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level1");
+        }
+
+        private void InitializeLevel2()
+        {
+            ServiceLocator.GetService<PlayerData>().PlayerInstantation();
+            ServiceLocator.GetService<MyAudioManager>().PlayMusic("dungeon");
+            ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level2");
+        }
+
+        private void InitializeLevel3()
+        {
+            ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level3");
+        }
+        #endregion
+
+        //TODO sacar de este script
         private void CheckEnemyCounter()
         {
             if (enemyCount >= 5)
             {
-                canCheck = false;
                 Gem_Level1.SetActive(true);
             }
         }
         
-        private void CheckFlowerBossLife()
-        {
-            if (FlowerBossHealth.Instance == null) return;
-            
-            if (FlowerBossHealth.Instance.CurrentHealth <= 0f)
-            {
-                flowerDefeated = true;
-                StartCoroutine(StartGoblinIA());
-            }
-        }
-
-        private void CheckGoblinBossLife()
-        {
-            if (GoblinBossHealth.Instance == null) return;
-            
-            if (GoblinBossHealth.Instance.CurrentHealth <= 0f)
-            {
-                goblinDefeated = true;
-                Gem_Level_Boss.SetActive(true);
-                Gem_Level_Boss.transform.DOMoveY(transform.position.y, 3).SetEase(Ease.Linear).Play();
-            }
-        }
-
         private IEnumerator StartGoblinIA()
         {
             yield return new WaitForSeconds(2f);
             Goblin.SetActive(true);
             GoblinWeapon.SetActive(true);
         }
-
+        
+        #region COLLECTIBLES
+        public void CollectGem(Collectible.CollectibleTypes gemType)
+        {
+            switch (gemType)
+            {
+                case Collectible.CollectibleTypes.GemBlue:
+                    Debug.Log("Azul conseguida");
+                    break;
+                case Collectible.CollectibleTypes.GemPurple:
+                    FlightLevel.Instance.LevelComplete();
+                    break;
+                case Collectible.CollectibleTypes.GemRed:
+                    Debug.Log("Roja conseguida");
+                    break;
+                case Collectible.CollectibleTypes.GemGreen:
+                    Debug.Log("Verde conseguida");
+                    break;
+            }
+        }
+        #endregion
     }
 }

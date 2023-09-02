@@ -26,7 +26,7 @@ namespace AI.Menu
                 timer--;
             }
             
-            ServiceLocator.GetService<MyGameManager>().AIDemoControl = true;
+            ServiceLocator.GetService<MyLevelManager>().AIDemoControl = true;
             SceneManager.LoadScene("Level1");
         }
     }

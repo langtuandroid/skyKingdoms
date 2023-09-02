@@ -1,5 +1,6 @@
 using SO;
 using UnityEngine;
+using Utils;
 
 public class PlayerData : MonoBehaviour
 {
@@ -15,12 +16,24 @@ public class PlayerData : MonoBehaviour
 
     public void PlayerInstantation(Transform playerInitialPosition = null)
     {
-        if(playerInitialPosition == null) 
-            playerInitialPosition.position = Vector3.zero;
+        Vector3 playerPosition = Vector3.zero;
+        if (playerInitialPosition != null)
+            playerPosition = playerInitialPosition.position;
         
-        if(_playerSO.player == "B")
-            Instantiate( _playerPrefabBoy, playerInitialPosition.position, Quaternion.identity );
-        else if (_playerSO.player == "G")
-            Instantiate( _playerPrefabGirl, playerInitialPosition.position, Quaternion.identity );
+        if(_playerSO.player == null)
+            Instantiate( _playerPrefabBoy, playerPosition, Quaternion.identity );
+        else
+        {
+            if (_playerSO.player == "B")
+            {
+                Constants.Character = "Leo";
+                Instantiate( _playerPrefabBoy, playerPosition, Quaternion.identity );
+            }
+            else if (_playerSO.player == "G")
+            {
+                Constants.Character = "Magen";
+                Instantiate( _playerPrefabGirl, playerPosition, Quaternion.identity );   
+            }
+        }
     }
 }

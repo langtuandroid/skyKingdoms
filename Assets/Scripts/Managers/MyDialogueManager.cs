@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using Doublsb.Dialog;
+using Service;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -33,7 +34,6 @@ namespace Managers
         private string currentScene;
         private bool isSubmitBtn;
         private bool canStart;
-        private bool canCheckVisibility;
         private const string TEXT_STORY = "Text_Story";
         private const string TEXT = "Text";
         private const string MAX_STEPS = "GetMaxStep";
@@ -50,7 +50,7 @@ namespace Managers
                 CheckShowButton();   
             } else if (canStart && !PlayerControl)
             {
-                //CheckDialogVisibility();
+
             }
         }
 
@@ -103,7 +103,7 @@ namespace Managers
 
                 characterText.text = characterName;
 
-                canCheckVisibility = true;
+                //canCheckVisibility = true;
 
                 dialogAnimator.ShowDialogBox();
                 
@@ -130,7 +130,7 @@ namespace Managers
 
             characterText.text = characterName;
 
-            canCheckVisibility = true;
+            //canCheckVisibility = true;
             
             dialogAnimator.ShowDialogBox();
 
@@ -155,13 +155,6 @@ namespace Managers
             string text = currentText.Substring(asteriskIndex + 1);
 
             return dialogManager.Printer_Text.text.Length >= text.Length;
-        }
-        
-        // No hay más texto que mostrar
-        void StoryEnds()
-        {
-            dialogAnimator.HideDialogBox();
-            MyGameManager.ResumePlayerMovement();
         }
         
         // Player Input Action Submit
@@ -192,6 +185,8 @@ namespace Managers
         // Carga de textos en Niveles
         public void TextLevel(string level)
         {
+            PlayerControl = true;
+            
             step = 0;
             
             Type storyType = Type.GetType(TEXT + "_" + level);
@@ -225,6 +220,14 @@ namespace Managers
         {
             step = maxStep;
             StoryEnds();
+        }
+        
+        // No hay más texto que mostrar
+        void StoryEnds()
+        {
+            dialogAnimator.HideDialogBox();
+            
+            ServiceLocator.GetService<MyGameManager>().ResumePlayerMovement();
         }
     }
 }

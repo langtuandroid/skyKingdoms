@@ -108,13 +108,13 @@ public class DollyTrack_Story_0 : InputsUI
         
         ServiceLocator.GetService<MyDialogueManager>().HideDialogBox();
         yield return new WaitForSeconds(1);
-        ServiceLocator.GetService<LoadScreenManager>().LoadScene("Story_1");
+        ServiceLocator.GetService<LoadScreenManager>().LoadScene("Level1");
     }
 
     private void LoadScene()
     {
         ServiceLocator.GetService<MyDialogueManager>().HideDialogBox();
-        ServiceLocator.GetService<LoadScreenManager>().LoadScene("Story_1");
+        ServiceLocator.GetService<LoadScreenManager>().LoadScene("Level1");
     }
     
 }

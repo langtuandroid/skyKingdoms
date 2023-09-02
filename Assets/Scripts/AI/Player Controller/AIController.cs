@@ -2,6 +2,7 @@ using System.Collections;
 using Managers;
 using Service;
 using UnityEngine;
+using Utils;
 
 namespace AI.Player_Controller
 {
@@ -20,7 +21,7 @@ namespace AI.Player_Controller
         [Header("Movement Settings")]
         [SerializeField] private float moveSpeed = 5f; // Velocidad de movimiento del personaje
         [SerializeField] private float jumpForce = 5f; // Fuerza de salto del personaje
-        [SerializeField] private float jumpForwardForce = 5f; // Fuerza de salto del personaje
+        //[SerializeField] private float jumpForwardForce = 5f; // Fuerza de salto del personaje
 
         [Header("Spell Settings")]
         [SerializeField] private GameObject spellPrefab;
@@ -114,8 +115,8 @@ namespace AI.Player_Controller
         {
             yield return new WaitForSeconds(1f);
 
-            plants = GameObject.FindGameObjectsWithTag(Constants.ENEMY_TAG);
-            platforms = GameObject.FindGameObjectsWithTag(Constants.PLATFORM_TAG);
+            plants = GameObject.FindGameObjectsWithTag(Constants.EnemyTag);
+            platforms = GameObject.FindGameObjectsWithTag(Constants.PlatformTag);
         }
         
         private IEnumerator CloseDialogue()
@@ -169,17 +170,17 @@ namespace AI.Player_Controller
             
             if (Physics.SphereCast(transform.position, 0.5f, direction, out hit, 3f))
             {
-                if (MyLevelManager.Instance.enemyCount < 5)
+                if (ServiceLocator.GetService<MyLevelManager>().enemyCount < 5)
                 {
-                    if (hit.collider.CompareTag(Constants.TREE_TAG) ||
-                        hit.collider.CompareTag(Constants.PLATFORM_TAG))
+                    if (hit.collider.CompareTag(Constants.TreeTag) ||
+                        hit.collider.CompareTag(Constants.PlatformTag))
                     {
                         StartCoroutine(EvadeObstacle(hit.point));
                     }    
-                } else if (MyLevelManager.Instance.enemyCount >= 5)
+                } else if (ServiceLocator.GetService<MyLevelManager>().enemyCount >= 5)
                 {
-                    if (hit.collider.CompareTag(Constants.TREE_TAG) ||
-                        hit.collider.CompareTag(Constants.ENEMY_TAG))
+                    if (hit.collider.CompareTag(Constants.TreeTag) ||
+                        hit.collider.CompareTag(Constants.EnemyTag))
                     {
                         StartCoroutine(EvadeObstacle(hit.point));
                     } 
@@ -229,11 +230,11 @@ namespace AI.Player_Controller
 
         private void CheckStates()
         {
-            if (MyLevelManager.Instance.enemyCount < 5)
+            if (ServiceLocator.GetService<MyLevelManager>().enemyCount < 5)
             {
                 DefeatFlowerState();
             }
-            else if (MyLevelManager.Instance.enemyCount >= 5)
+            else if (ServiceLocator.GetService<MyLevelManager>().enemyCount >= 5)
             {
                 GetGemState();
             }
@@ -263,7 +264,7 @@ namespace AI.Player_Controller
 
         private void GetGemState()
         {
-            gem = GameObject.FindGameObjectWithTag(Constants.GEM_TAG);
+            gem = GameObject.FindGameObjectWithTag(Constants.GemTag);
             if (gem == null) return;
 
             // Mover hacia la primera plataforma
@@ -376,10 +377,10 @@ namespace AI.Player_Controller
         {
             if (!this.isActiveAndEnabled) return;
             
-            if (other.CompareTag(Constants.ENEMY_TAG))
+            if (other.CompareTag(Constants.EnemyTag))
             {
                 PlayerHealth.Instance.AddDamage(10);
-            } else if (other.CompareTag(Constants.GEM_TAG))
+            } else if (other.CompareTag(Constants.GemTag))
             {
                 canMove = false;
             }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Managers;
+using Service;
 using UnityEngine;
 
 namespace Generators
@@ -66,12 +67,12 @@ namespace Generators
         void Start()
         {
             GenerateTerrain();
-            GenerateMountains();
+            //GenerateMountains();
             GenerateTrees();
             GenerateGrass();
-            GeneratePlatforms();
+            //GeneratePlatforms();
             EnemySpawner.Instance.CanStart();
-            MyLevelManager.Instance.canStart = true;
+            ServiceLocator.GetService<MyLevelManager>().StartLevel();
         }
         #endregion
 
@@ -340,7 +341,8 @@ namespace Generators
             {
                 Vector3 gemPosition = new Vector3(lastPlatform.transform.position.x, lastPlatform.transform.position.y + 3f,
                     lastPlatform.transform.position.z);
-                MyLevelManager.Instance.Gem_Level1 = Instantiate(gemPrefab, gemPosition, Quaternion.identity);
+                
+                ServiceLocator.GetService<MyLevelManager>().Gem_Level1 = Instantiate(gemPrefab, gemPosition, Quaternion.identity); 
             }
         }
 

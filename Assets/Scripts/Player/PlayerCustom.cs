@@ -3,6 +3,7 @@ using Service;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
 
 namespace Player
 {
@@ -32,7 +33,7 @@ namespace Player
                 if (_canChange) return;
                 Girl.transform.rotation = Quaternion.Euler(0f, 00f, 0f);
                 Boy.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-                _animatorLeo.SetTrigger("shoot");
+                _animatorLeo.SetTrigger(Constants.AnimatorShoot);
                 _canChange = true;
             }
             else
@@ -40,7 +41,7 @@ namespace Player
                 if (!_canChange) return;
                 Girl.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                 Boy.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                _animatorMagen.Play("Attack01_SwordAndShiled");
+                _animatorMagen.Play(Constants.AnimatorShoot);
                 _canChange = false;
             }
         }

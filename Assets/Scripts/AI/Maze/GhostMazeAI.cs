@@ -2,6 +2,7 @@ using Managers;
 using Player;
 using Service;
 using UnityEngine;
+using Utils;
 
 public class GhostMazeAI : MonoBehaviour
 {
@@ -11,12 +12,13 @@ public class GhostMazeAI : MonoBehaviour
     public float visionRange = 5f; 
     private Vector3 initialPosition; 
     private bool isChasing = false;
-    private bool isReset = false;
     private Vector3 patrolDestination;
     private bool isConfused;
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag(Constants.Player).GetComponent<Transform>();
+        
         initialPosition = new Vector3(MazeGenerator.Instance.Width, 0f, MazeGenerator.Instance.Height);
         transform.position = initialPosition;
         SetRandomPatrolDestination(); // Establecer un destino de patrulla aleatorio al inicio

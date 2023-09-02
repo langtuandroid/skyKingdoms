@@ -5,6 +5,7 @@ using Service;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
 
 public class DollyTrack_Story_1 : InputsUI
 {
@@ -17,17 +18,15 @@ public class DollyTrack_Story_1 : InputsUI
     public CinemachineFreeLook playerCam;
     private Animator _anim;
 
-    private bool btnPresed = false;
-
     private MyDialogueManager _myDialogueManager;
     
     #endregion
     
     private void Start()
     {
-        ServiceLocator.GetService<MyLevelManager>().StartLevel(dollyCartSeq2.gameObject.transform);
+        ServiceLocator.GetService<MyLevelManager>().StartLevel();
         _myDialogueManager = ServiceLocator.GetService<MyDialogueManager>();
-        player = GameObject.FindWithTag(Constants.PLAYER).gameObject;
+        player = GameObject.FindWithTag(Constants.Player).gameObject;
         player.transform.SetParent(dollyCartSeq2.transform);
         _anim = player.GetComponent<Animator>();
         
@@ -136,9 +135,7 @@ public class DollyTrack_Story_1 : InputsUI
         playerCam.Follow = player.GetComponent<Transform>();
         playerCam.enabled = true;
         finalCam.enabled = false;
-        ServiceLocator.GetService<MyLevelManager>().Level("Story_1", true);
         player.GetComponent<PlayerController>().CanMove = true;
-        ServiceLocator.GetService<MyInputManager>().PlayerInputs();
     }
 
     private void SetDragonPosition()

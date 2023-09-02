@@ -4,7 +4,6 @@ namespace Player
 {
     public class Interaction : MonoBehaviour
     {
-        public static Interaction Instance;
         [SerializeField]
         private Transform _colliderOffset;
     
@@ -14,48 +13,66 @@ namespace Player
         private IInteractable _interactable;
 
         private float _checkDistance = 0.6f;
-        private Vector3 _rayCastOffset = new Vector3(0.2f, 0.2f, 0f);
 
         public bool IsInteracting { get; private set; }
-
-        private void Awake()
-        {
-            Instance = this;
-        }
-
+        
         private void Update()
         {
             CanInteract();
+            Debug.Log("Puedo Interactuar? " + CanInteract());
         }
 
-        public void Interact(bool interactInput)
+        public void Interact()
         {
             StopInteracting();
+            
             if (CanInteract())
             {
-                if (interactInput)
-                {
-                    _interactable?.Interact();
-                    IsInteracting = true;
-                }
+                _interactable?.Interact();
+                IsInteracting = true;         
             }
         }
 
-        private bool CanInteract()
+        public bool CanInteract()
         {
+            _interactable?.ShowCanInteract(false);
+            
             Vector3 origin = transform.position + _colliderOffset.position;
+            
             RaycastHit hit;
-
-            if (Physics.Raycast(origin, Vector3.forward, out hit, _checkDistance, _interactableLayer))
+            
+            if (Physics.Raycast(origin, transform.forward, out hit, _checkDistance, _interactableLayer))
             {
                 _interactable = hit.collider.GetComponent<IInteractable>();
-                if (_interactable != null)
-                {
-                    _interactable.ShowCanInteract(true);
-                    return true;
-                }
+            }
+            else
+            {
+                _interactable = null;
+            }
+            
+            if (_interactable != null)
+            {
+                _interactable?.ShowCanInteract(true);
+                return true;
+            }  
+            
+            origin = transform.position + _colliderOffset.position;
+            
+            if (Physics.Raycast(origin, transform.forward, out hit, _checkDistance, _interactableLayer))
+            {
+                _interactable = hit.collider.GetComponent<IInteractable>();
+            }
+            else
+            {
+                _interactable = null;
             }
 
+            if (_interactable != null)
+            {
+                _interactable?.ShowCanInteract(true);
+                return true;
+            }  
+            
             return false;
         }
 

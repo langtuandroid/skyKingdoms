@@ -53,7 +53,7 @@ public class Collectible : MonoBehaviour
         if (collectEffect)
             Instantiate(collectEffect, transform.position, Quaternion.identity);
 
-        ServiceLocator.GetService<MyGameManager>().CollectGem(CollectibleType);
+        ServiceLocator.GetService<MyLevelManager>().CollectGem(CollectibleType);
 
         Destroy(gameObject);
     }

@@ -96,6 +96,7 @@ namespace Managers
 
         public void UIInputs()
         {
+            Debug.Log("Entro");
             if (movementAction != null)
                 movementAction.Disable();
 

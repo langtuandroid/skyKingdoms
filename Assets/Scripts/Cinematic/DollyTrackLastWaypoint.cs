@@ -25,7 +25,7 @@
 
         void Start()
         {
-            ServiceLocator.GetService<MyInputManager>().UIInputs();
+            ServiceLocator.GetService<MyLevelManager>().StartLevel();
             //StartCoroutine(DrawRainbow());
         }
 

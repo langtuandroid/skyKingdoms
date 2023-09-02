@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Service
 {
-    [DefaultExecutionOrder(-10)]
+    [DefaultExecutionOrder(-100)]
     public class ServiceLocatorInitializer : MonoBehaviour
     {
         private void Awake()
@@ -45,6 +45,9 @@ namespace Service
 
             var dayNightSystem = FindObjectOfType<DayNightSystem>();
             ServiceLocator.AddService(dayNightSystem);
+            
+            var cameraController = FindObjectOfType<CameraController>();
+            ServiceLocator.AddService(cameraController);
         }
     }
 }

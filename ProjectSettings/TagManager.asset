@@ -26,11 +26,12 @@ TagManager:
   - Wall
   - Limit
   - Ground
+  - VirtualCamera
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Interactable
   - Water
   - UI
   - FireLayer

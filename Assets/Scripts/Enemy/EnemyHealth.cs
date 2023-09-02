@@ -1,32 +1,20 @@
 using DG.Tweening;
-using Managers;
+using Interface;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour, IPunchable
 {
-    public static EnemyHealth Instance;
-    //[SerializeField] private GameObject hitParticle;
-
-    private void Awake()
+    private void Damage()
     {
-        Instance = this;
+        transform.DOScale(Vector3.zero, 1).SetEase(Ease.InBounce).OnComplete(() =>
+        {
+            Destroy(gameObject);
+        });
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Punch(int damage)
     {
-        if (other.CompareTag("Fire"))
-        {
-            MyLevelManager.Instance.enemyCount++;
-            
-            //hitParticle.SetActive(true);
-            
-            other.gameObject.SetActive(false);
-            
-            transform.DOScale(Vector3.zero, 1).SetEase(Ease.InBounce).OnComplete(() =>
-            {
-                Destroy(gameObject);
-            });
-        }
+        Damage();
     }
 }
 
