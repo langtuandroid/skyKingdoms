@@ -91,19 +91,15 @@ public class PlayerController : MonoBehaviour
         
         ServiceLocator.GetService<MyLevelManager>().OnLevelInit += Init;
     }
-
     
-#if UNITY_EDITOR
     private void Start()
     {
         if (!_isInitialized)
             Init();
     }
-#endif
 
     public void Init()
     {
-        if (_isInitialized) return;
         // INPUTS
         _gameInputs = ServiceLocator.GetService<MyInputManager>();   
         _gameInputs.movementAction.performed += OnMovementPerformed;
@@ -124,8 +120,6 @@ public class PlayerController : MonoBehaviour
         _camera.LookAt = transform1;
         
         CanMove = true;
-
-        _isInitialized = true;
     }
     
     private void Update()

@@ -380,6 +380,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 292987520531445907, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2737076256948910586, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -427,6 +431,10 @@ PrefabInstance:
     - target: {fileID: 2737076256948910587, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
       propertyPath: m_Name
       value: ServiceInitializer
+      objectReference: {fileID: 0}
+    - target: {fileID: 5491948170148891505, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
