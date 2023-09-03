@@ -135,7 +135,6 @@ public class DollyTrack_Story_1 : InputsUI
         playerCam.Follow = player.GetComponent<Transform>();
         playerCam.enabled = true;
         finalCam.enabled = false;
-        player.GetComponent<PlayerController>().CanMove = true;
     }
 
     private void SetDragonPosition()

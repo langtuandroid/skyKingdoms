@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     public bool CanMove = false;
+    private bool _isInitialized;
     #endregion
     
     private void OnDestroy()
@@ -73,9 +74,9 @@ public class PlayerController : MonoBehaviour
     {
         //Components
         _rb = GetComponent<Rigidbody>();
-        _animator = GetComponentInChildren<Animator>();
+        _animator = GetComponent<Animator>();
         _interaction = GetComponent<Interaction>();
-        _swordAttack = GetComponentInChildren<SwordAttack>();//todo diferenciar espadas
+        _swordAttack = GetComponentInChildren<SwordAttack>();
         _camera = GameObject.FindGameObjectWithTag("VirtualCamera").GetComponent<CinemachineFreeLook>();
         
         //Feel
@@ -87,10 +88,12 @@ public class PlayerController : MonoBehaviour
         //Scripts
         _jump = new Jump();
         _playerAnimator = new PlayerAnimator();
+        
+        ServiceLocator.GetService<MyLevelManager>().OnLevelInit += Init;
     }
+
     
-#if UNITY_EDITOR //todo metodo que hay que llamar desde el flujo principal
-    private bool _isInitialized;
+#if UNITY_EDITOR
     private void Start()
     {
         if (!_isInitialized)
@@ -100,6 +103,7 @@ public class PlayerController : MonoBehaviour
 
     public void Init()
     {
+        if (_isInitialized) return;
         // INPUTS
         _gameInputs = ServiceLocator.GetService<MyInputManager>();   
         _gameInputs.movementAction.performed += OnMovementPerformed;
@@ -115,14 +119,13 @@ public class PlayerController : MonoBehaviour
         _playerAnimator.Init(_animator);
         
         //CAMERA
-        //CameraController _cam = ServiceLocator.GetService<CameraController>(); 
-        //if(_cam.isActiveAndEnabled) _cam.freeLookCamera.Follow = transform;
-        _camera.Follow = transform;
-        _camera.LookAt = transform;
-
-#if UNITY_EDITOR
+        var transform1 = transform;
+        _camera.Follow = transform1;
+        _camera.LookAt = transform1;
+        
         CanMove = true;
-#endif
+
+        _isInitialized = true;
     }
     
     private void Update()

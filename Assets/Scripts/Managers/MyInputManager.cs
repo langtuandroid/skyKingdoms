@@ -66,6 +66,7 @@ namespace Managers
         #region ENABLE / DISABLE
         public void PlayerInputs()
         {
+            Debug.Log("Player inputs");
             if (uiMovementAction != null)
                 uiMovementAction.Disable();
 
@@ -96,7 +97,7 @@ namespace Managers
 
         public void UIInputs()
         {
-            Debug.Log("Entro");
+            Debug.Log("ui inputs");
             if (movementAction != null)
                 movementAction.Disable();
 

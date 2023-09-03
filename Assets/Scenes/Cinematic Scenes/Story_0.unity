@@ -1616,6 +1616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c85c58729e043ba9bc7fea273093ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionList: []
   dollyCartSeq1: {fileID: 2145330247}
   dollyCartSeq2: {fileID: 763961759}
   finalCam: {fileID: 124998355}
@@ -1662,6 +1663,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 503705185205238386, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025571954543223054, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2737076256948910586, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
       propertyPath: m_RootOrder
       value: 8

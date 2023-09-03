@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Service;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace Managers
         public GameObject Gem_Level_Boss;
         public GameObject Goblin;
         public GameObject GoblinWeapon;
+
+        public event Action OnLevelInit;
         
         public void StartLevel()
         {
@@ -88,6 +91,7 @@ namespace Managers
             ServiceLocator.GetService<PlayerData>().PlayerInstantation();
             ServiceLocator.GetService<MyAudioManager>().PlayMusic("dayAmbient");
             ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level1");
+            OnLevelInit?.Invoke();
         }
 
         private void InitializeLevel2()

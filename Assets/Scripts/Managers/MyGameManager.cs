@@ -14,10 +14,6 @@ namespace Managers
         public Animator playerCanvasAnimator;
         public bool gameOver;
         public bool isLoading;
-
-        [SerializeField]
-        private bool _playerControl;
-        public event Action OnPlayerControl;
         #endregion
     
         #region UNITY METHODS
@@ -25,29 +21,14 @@ namespace Managers
         private void Start()
         {
             PausePlayerMovement();
-            
-#if  UNITY_EDITOR
-            if(_playerControl)
-                OnPlayerControl?.Invoke();      
-#endif
         }
         
-        private void OnEnable()
-        {
-            OnPlayerControl += ResumePlayerMovement;
-        }
-
-        private void OnDisable()
-        {
-            OnPlayerControl -= ResumePlayerMovement;
-        }
-
         #endregion
         
         #region GAME OVER
         public void GameOver()
         {
-            if (isLoading) return; //TODO meter pequeño delay
+            if (isLoading) return;
         
             if (!gameOver)
             {
