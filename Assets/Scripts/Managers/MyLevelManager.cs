@@ -28,6 +28,9 @@ namespace Managers
                 case "Cinematic":
                     InitializeCinematic();
                     break;
+                case "TheVillage":
+                    InitializeTheVillage();
+                    break;
                 case "Story_0":
                     InitializeStory0();
                     break;
@@ -84,11 +87,22 @@ namespace Managers
             ServiceLocator.GetService<MyDialogueManager>().PlayerControl = false;
         }
         #endregion
-
+        
+        private void InitializeTheVillage()
+        {
+            ServiceLocator.GetService<PlayerData>().PlayerInstantation();
+            ServiceLocator.GetService<MyGameManager>().ResumePlayerMovement();
+        }
+        
+        
         #region Levels
         private void InitializeLevel1()
         {
-            ServiceLocator.GetService<PlayerData>().PlayerInstantation();
+            GameObject player = new GameObject();
+            player.transform.position = new Vector3(8f, 1f, 8f);
+            ServiceLocator.GetService<PlayerData>().PlayerInstantation(player.transform);
+            Destroy(player);
+            
             ServiceLocator.GetService<MyAudioManager>().PlayMusic("dayAmbient");
             ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level1");
             OnLevelInit?.Invoke();
@@ -105,6 +119,8 @@ namespace Managers
         {
             ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level3");
         }
+        
+        
         #endregion
 
         //TODO sacar de este script

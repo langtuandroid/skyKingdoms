@@ -1,20 +1,19 @@
-using DG.Tweening;
+using System;
 using Interface;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IPunchable
 {
-    private void Damage()
+    [SerializeField] private int _health;
+
+    private void Damage(int damage)
     {
-        transform.DOScale(Vector3.zero, 1).SetEase(Ease.InBounce).OnComplete(() =>
-        {
-            Destroy(gameObject);
-        });
+        _health += damage;
     }
 
     public void Punch(int damage)
     {
-        Damage();
+        Damage(damage);
     }
 }
 

@@ -64,6 +64,10 @@ namespace Managers
         }
 
         #region ENABLE / DISABLE
+        /// <summary>
+        /// Inputs para controlar al jugador
+        /// Se llama desde MyGameManager
+        /// </summary>
         public void PlayerInputs()
         {
             Debug.Log("Player inputs");
@@ -95,6 +99,10 @@ namespace Managers
                 attackAction.Enable();
         }
 
+        /// <summary>
+        /// Inputs para controlar la UI
+        /// Se llama desde MyGameManager
+        /// </summary>
         public void UIInputs()
         {
             Debug.Log("ui inputs");

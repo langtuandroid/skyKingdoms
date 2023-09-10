@@ -82,14 +82,12 @@ public class PlayerController : MonoBehaviour
         //Feel
         _bounceFeedbacks = GetComponent<BounceFeedbacks>();
         _bounceFeedbacks.ChargeFeedbacks = GameObject.Find("ChargeFeedbacks").GetComponent<MMFeedbacks>();
-        _bounceFeedbacks.JumpFeedbacks = GameObject.Find("JumpFeedbacks").GetComponent<MMFeedbacks>();
+        //_bounceFeedbacks.JumpFeedbacks = GameObject.Find("JumpFeedbacks").GetComponent<MMFeedbacks>();
         _bounceFeedbacks.LandingFeedbacks = GameObject.Find("LandingFeedbacks").GetComponent<MMFeedbacks>();
         
         //Scripts
         _jump = new Jump();
         _playerAnimator = new PlayerAnimator();
-        
-        ServiceLocator.GetService<MyLevelManager>().OnLevelInit += Init;
     }
     
     private void Start()

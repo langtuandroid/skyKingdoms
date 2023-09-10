@@ -7,6 +7,10 @@ public class PlayerData : MonoBehaviour
     [SerializeField] private PlayerSO       _playerSO;
     [SerializeField] private GameObject     _playerPrefabBoy;
     [SerializeField] private GameObject     _playerPrefabGirl;
+    
+    public delegate void OnPlayerInstantiated(Transform playerTransform);
+    
+    public static event OnPlayerInstantiated PlayerInstantiated;
 
     public PlayerSO PlayerSO
     {
@@ -27,12 +31,14 @@ public class PlayerData : MonoBehaviour
             if (_playerSO.player == "B")
             {
                 Constants.Character = "Leo";
-                Instantiate( _playerPrefabBoy, playerPosition, Quaternion.identity );
+                GameObject Leo = Instantiate( _playerPrefabBoy, playerPosition, Quaternion.identity );
+                PlayerInstantiated?.Invoke(Leo.transform);
             }
             else if (_playerSO.player == "G")
             {
                 Constants.Character = "Magen";
-                Instantiate( _playerPrefabGirl, playerPosition, Quaternion.identity );   
+                GameObject Magen = Instantiate( _playerPrefabGirl, playerPosition, Quaternion.identity );
+                PlayerInstantiated?.Invoke(Magen.transform);
             }
         }
     }

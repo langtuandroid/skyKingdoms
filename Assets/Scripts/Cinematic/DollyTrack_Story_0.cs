@@ -47,6 +47,8 @@ public class DollyTrack_Story_0 : InputsUI
     {
         BlackCanvas.SetActive(false);
         
+        ServiceLocator.GetService<MyLevelManager>().StartLevel();
+        
         if (dollyCartSeq1.m_Path != null) // Dolly Track del Goblin
         {
             pathLength1 = dollyCartSeq1.m_Path.PathLength;

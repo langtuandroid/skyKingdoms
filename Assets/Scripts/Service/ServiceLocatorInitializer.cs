@@ -48,6 +48,9 @@ namespace Service
             
             var cameraController = FindObjectOfType<CameraController>();
             ServiceLocator.AddService(cameraController);
+            
+            var impacts = FindObjectOfType<Impacts>();
+            ServiceLocator.AddService(impacts);
         }
     }
 }
