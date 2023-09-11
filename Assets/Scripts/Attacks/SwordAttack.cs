@@ -60,7 +60,7 @@ namespace Attacks
                     Transform hitPoint = collision.transform.Find("HitPoint");
                     ParticleSystem hitParticle = Instantiate(_hitImpactList[1], hitPoint).GetComponent<ParticleSystem>();
                     hitParticle.Play();
-                    Destroy(hitParticle.gameObject, hitParticle.time);
+                    //Destroy(hitParticle.gameObject, hitParticle.time);
                     _hitImpactControl++;
                 }
             }
