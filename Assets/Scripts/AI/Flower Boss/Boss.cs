@@ -3,6 +3,7 @@ using Managers;
 using Player;
 using Service;
 using UnityEngine;
+using Utils;
 
 public class Boss : MonoBehaviour
 {
@@ -91,6 +92,8 @@ public class Boss : MonoBehaviour
 
     private void Start()
     {
+        ServiceLocator.GetService<MyLevelManager>().StartLevel();
+        _player = GameObject.FindGameObjectWithTag(Constants.Player).gameObject;
         StartCoroutine(StartIA());
     }
     

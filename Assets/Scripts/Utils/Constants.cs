@@ -31,6 +31,7 @@ namespace Utils
         public const string AnimatorAttackCombo = "physicalAttackCombo";
         
         
-        public const string LeoSword = "OHS03";
+        public const string Sword = "OHS03";
+        public const string Weapon = "Weapon_L";
     }
 }

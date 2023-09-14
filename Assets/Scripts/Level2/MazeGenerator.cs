@@ -1,18 +1,18 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Managers;
 using UnityEngine;
 using Random = System.Random;
 
 public class MazeGenerator : MonoBehaviour //Hunt-and-Kill algorithm
 {
-    public static MazeGenerator Instance;
+    public event Action OnMazeGenerated;
     
     [SerializeField] private int _width, _height;
     [SerializeField] private Cell _cellPrefab;
     [SerializeField] public GameObject _gemPrefab; // Prefab de la gema
-    [SerializeField] private LoadScreenManager sceneManager;
+
     [HideInInspector]
     public Dictionary<Vector2Int, CellData> UnvisitedCells, VisitedCells;
     private long _memBefore, _memAfter;
@@ -26,12 +26,7 @@ public class MazeGenerator : MonoBehaviour //Hunt-and-Kill algorithm
     {
         get { return _height; }
     }
-
-    private void Awake()
-    {
-        Instance = this;
-    }
-
+    
     private void Start()
     {
         _memBefore = GC.GetTotalMemory(false);
@@ -43,8 +38,10 @@ public class MazeGenerator : MonoBehaviour //Hunt-and-Kill algorithm
         {
             UnvisitedCells.Add(position, new CellData(position));
             UnvisitedCells[position].RefreshNeighbours(VisitedCells, _width, _height);
+            
+            float scaleFactor = 4.0f;  
 
-            Instantiate(_cellPrefab.gameObject, new Vector3(position.x, 0, position.y), Quaternion.identity, transform)
+            Instantiate(_cellPrefab.gameObject, new Vector3(position.x * scaleFactor, 0, position.y * scaleFactor), Quaternion.identity, transform)
                 .GetComponent<Cell>().SetData(UnvisitedCells[position]);
 
 
@@ -59,6 +56,15 @@ public class MazeGenerator : MonoBehaviour //Hunt-and-Kill algorithm
         GenerateMaze(UnvisitedCells.Values.First());
         
         FindPaths();
+
+        StartCoroutine(nameof(WaitUntilStart));
+    }
+
+    private IEnumerator WaitUntilStart()
+    {
+        yield return new WaitForSeconds(1f);
+        
+        OnMazeGenerated?.Invoke();
     }
     
     private void FindPaths()

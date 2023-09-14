@@ -1,8 +1,9 @@
+using System;
 using Managers;
-using Player;
 using Service;
 using UnityEngine;
 using Utils;
+using Random = UnityEngine.Random;
 
 public class GhostMazeAI : MonoBehaviour
 {
@@ -14,19 +15,33 @@ public class GhostMazeAI : MonoBehaviour
     private bool isChasing = false;
     private Vector3 patrolDestination;
     private bool isConfused;
+    private MazeGenerator mazeGenerator;
+    private bool _canStart;
+
+    private void OnDisable()
+    {
+        mazeGenerator.OnMazeGenerated -= OnMazeGenerated;
+    }
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag(Constants.Player).GetComponent<Transform>();
-        
-        initialPosition = new Vector3(MazeGenerator.Instance.Width, 0f, MazeGenerator.Instance.Height);
-        transform.position = initialPosition;
-        SetRandomPatrolDestination(); // Establecer un destino de patrulla aleatorio al inicio
+        mazeGenerator = FindObjectOfType<MazeGenerator>();
+        if (mazeGenerator != null)
+        {
+            mazeGenerator.OnMazeGenerated += OnMazeGenerated;
+        }
+      
+    }
+
+    private void OnMazeGenerated()
+    {
+        ServiceLocator.GetService<MyLevelManager>().StartLevel();
+        CanStart();
     }
 
     private void Update()
     {
-       // if (!BoyController.Instance.CanMove) return;
+        if (!_canStart) return;
         
         if (!isChasing)
         {
@@ -42,6 +57,15 @@ public class GhostMazeAI : MonoBehaviour
         }
     }
 
+    private void CanStart()
+    {
+        player = GameObject.FindGameObjectWithTag(Constants.Player).GetComponent<Transform>();
+        initialPosition = new Vector3(mazeGenerator.Width, 0f, mazeGenerator.Height);
+        transform.position = initialPosition;
+        SetRandomPatrolDestination();
+        _canStart = true;
+    }
+    
     private void Patrol()
     {
         transform.position = Vector3.MoveTowards(transform.position, patrolDestination, patrolSpeed * Time.deltaTime);
@@ -97,7 +121,7 @@ public class GhostMazeAI : MonoBehaviour
 
     private void SetRandomPatrolDestination()
     {
-        patrolDestination = new Vector3(Random.Range(0f, MazeGenerator.Instance.Width), 0f, Random.Range(0f, MazeGenerator.Instance.Height));
+        patrolDestination = new Vector3(Random.Range(0f, mazeGenerator.Width), 0f, Random.Range(0f, mazeGenerator.Height));
     }
     
     

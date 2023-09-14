@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _movement;
     private Interaction _interaction;
     private SwordAttack _swordAttack;
+    private SpecialAttack _specialAttack;
     private BounceFeedbacks _bounceFeedbacks;
     
     private MyInputManager _gameInputs;
@@ -66,9 +67,11 @@ public class PlayerController : MonoBehaviour
         _gameInputs.movementAction.performed -= OnMovementPerformed;
         _gameInputs.movementAction.canceled -= OnMovementCanceled;
         _gameInputs.attackAction.performed -= OnAttackPerformed;
+        _gameInputs.specialAttackAction.performed -= OnSpecialAttackPerformed;
         _gameInputs.defenseAction.performed -= OnDefenseOrInteractPerformed;
         _gameInputs.jumpAction.performed -= OnJumpPerformed;
     }
+    
 
     private void Awake()
     {
@@ -78,11 +81,12 @@ public class PlayerController : MonoBehaviour
         _interaction = GetComponent<Interaction>();
         _swordAttack = GetComponentInChildren<SwordAttack>();
         _camera = GameObject.FindGameObjectWithTag("VirtualCamera").GetComponent<CinemachineFreeLook>();
+        _specialAttack = GetComponent<SpecialAttack>();
         
         //Feel
         _bounceFeedbacks = GetComponent<BounceFeedbacks>();
         _bounceFeedbacks.ChargeFeedbacks = GameObject.Find("ChargeFeedbacks").GetComponent<MMFeedbacks>();
-        //_bounceFeedbacks.JumpFeedbacks = GameObject.Find("JumpFeedbacks").GetComponent<MMFeedbacks>();
+        _bounceFeedbacks.JumpFeedbacks = GameObject.Find("JumpFeedbacks").GetComponent<MMFeedbacks>();
         _bounceFeedbacks.LandingFeedbacks = GameObject.Find("LandingFeedbacks").GetComponent<MMFeedbacks>();
         
         //Scripts
@@ -103,6 +107,7 @@ public class PlayerController : MonoBehaviour
         _gameInputs.movementAction.performed += OnMovementPerformed;
         _gameInputs.movementAction.canceled += OnMovementCanceled;
         _gameInputs.attackAction.performed += OnAttackPerformed;
+        _gameInputs.specialAttackAction.performed += OnSpecialAttackPerformed;
         _gameInputs.defenseAction.performed += OnDefenseOrInteractPerformed;
         _gameInputs.jumpAction.performed += OnJumpPerformed;
         
@@ -203,7 +208,6 @@ public class PlayerController : MonoBehaviour
     {
         if (_isGrounded && !_isJumping)
         {
-            _bounceFeedbacks.PlayJump();
             _isJumping = true;
             _isDoubleJump = false;
             _playerAnimator.Jump();
@@ -211,7 +215,6 @@ public class PlayerController : MonoBehaviour
         }
         else if(!_isDoubleJump)
         {
-            _bounceFeedbacks.PlayCharge();
             _isDoubleJump = true;
             _playerAnimator.DoubleJump();
             _jump.DoubleJumpAction(_jumpHeight);
@@ -247,6 +250,14 @@ public class PlayerController : MonoBehaviour
     }
     
     #endregion
+    
+    
+    private void OnSpecialAttackPerformed(InputAction.CallbackContext obj)
+    {
+        _bounceFeedbacks.PlayCharge();
+        _specialAttack.Attack();
+        _playerAnimator.SpecialAttack();
+    }
     
     private void OnDefenseOrInteractPerformed(InputAction.CallbackContext obj)
     {

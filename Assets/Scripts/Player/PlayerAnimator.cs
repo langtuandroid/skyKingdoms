@@ -61,4 +61,9 @@ public class PlayerAnimator
     {
         _animator.SetTrigger(Constants.AnimatorDoubleJump);
     }
+
+    public void SpecialAttack()
+    {
+        _animator.SetTrigger("specialattack");
+    }
 }

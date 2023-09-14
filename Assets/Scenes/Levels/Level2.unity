@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 4832f540edf9641d1bd3435f53cca075, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 73a6a4ce4c87b4d46b08a288a08e9f10, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 210431573}
-  m_IndirectSpecularColor: {r: 0.082877144, g: 0.0363246, b: 0.13384132, a: 1}
+  m_IndirectSpecularColor: {r: 0.040017765, g: 0.23888169, b: 0.7944818, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 309724524}
   - component: {fileID: 309724525}
   m_Layer: 0
-  m_Name: Maze
+  m_Name: MazeGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -265,7 +265,6 @@ MonoBehaviour:
   _height: 10
   _cellPrefab: {fileID: 114795497291794100, guid: 8f4956b31429d4b2eab9c5e0d0063301, type: 3}
   _gemPrefab: {fileID: 1823124155692148}
-  sceneManager: {fileID: 0}
 --- !u!1 &841110355
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,8 +934,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gem: {fileID: 4089657664609100}
   player: {fileID: 0}
-  patrolSpeed: 1
-  visionRange: 3
+  patrolSpeed: 2
+  visionRange: 10
 --- !u!1 &6737954016460885863
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,20 +6,19 @@ using Utils;
 
 namespace Attacks
 {
-    public class SwordAttack : MonoBehaviour
+    public class MagicAttack: MonoBehaviour
     {
-        [SerializeField] private int physicalDamage = 1;
-        [SerializeField] private GameObject _trails;
-        
+        [SerializeField] private int magicalDamage = 1;
         private bool canCheckPhysicalCollisions;
         private List<GameObject> _hitImpactList;
         private int _hitImpactControl;
-        private bool _canHit;
-
+        public bool CanHit;
+        
         private void Start()
         {
             _hitImpactList = ServiceLocator.GetService<Impacts>().HitImpactList;
             _hitImpactControl = 0;
+            Attack();
         }
 
 
@@ -27,21 +26,13 @@ namespace Attacks
         {
             if (canCheckPhysicalCollisions)
                 CheckPhysicalCollisions();
-            
-            _trails.SetActive(canCheckPhysicalCollisions);
         }
 
         public void Attack()
         {
             canCheckPhysicalCollisions = true;
         }
-
-        public void ResetPhysicalAttackCollisions()
-        {
-            canCheckPhysicalCollisions = false;
-            _canHit = false;
-        }
-
+        
         private void CheckPhysicalCollisions()
         {
             Collider[] collisions = Physics.OverlapSphere(
@@ -49,13 +40,13 @@ namespace Attacks
 
             foreach (Collider collision in collisions)
             {
-                IPunchable punchable = collision.GetComponent<IPunchable>();
-                if (punchable != null)
+                IMagicAttack attack = collision.GetComponent<IMagicAttack>();
+                if (attack != null)
                 {
-                    if (_canHit) return;
-                    _canHit = true;
+                    if (CanHit) return;
+                    CanHit = true;
                     if (_hitImpactControl == _hitImpactList.Count) _hitImpactControl = 0;
-                    punchable.Punch(physicalDamage);
+                    attack.ReceiveMagicAtackk(magicalDamage);
                     Transform hitPoint = collision.transform.Find("HitPoint");
                     ParticleSystem hitParticle = Instantiate(_hitImpactList[1], hitPoint).GetComponent<ParticleSystem>();
                     hitParticle.Play();

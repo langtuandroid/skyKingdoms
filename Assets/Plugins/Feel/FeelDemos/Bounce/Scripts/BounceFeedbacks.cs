@@ -18,6 +18,8 @@ namespace  MoreMountains.Feel
 		/// a feedback to be played when the cube lands
 		public MMFeedbacks LandingFeedbacks;
 
+		public MMFeedbacks JumpFeedbacks;
+
 		/// <summary>
 		/// Called via an animator event when the charge starts
 		/// </summary>
@@ -31,7 +33,7 @@ namespace  MoreMountains.Feel
 		/// </summary>
 		public virtual void PlayJump()
 		{
-			//JumpFeedbacks?.PlayFeedbacks();
+			JumpFeedbacks?.PlayFeedbacks();
 		}
         
 		/// <summary>

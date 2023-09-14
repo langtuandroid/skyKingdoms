@@ -50,7 +50,7 @@ namespace Managers
                     ServiceLocator.GetService<MyAudioManager>().PlayMusic("flight");
                     break;
                 case "BossBattle":
-                    ServiceLocator.GetService<MyAudioManager>().PlayMusic("boss");
+                    InitializeBossBattle();
                     break;
                 case "TheEnd":
                     ServiceLocator.GetService<MyAudioManager>().PlayMusic("theEnd");
@@ -113,10 +113,18 @@ namespace Managers
             ServiceLocator.GetService<PlayerData>().PlayerInstantation();
             ServiceLocator.GetService<MyAudioManager>().PlayMusic("dungeon");
             ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level2");
+            Debug.Log("Player Instanciado");
         }
 
         private void InitializeLevel3()
         {
+            ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level3");
+        }
+        
+        private void InitializeBossBattle()
+        {
+            ServiceLocator.GetService<PlayerData>().PlayerInstantation();
+            ServiceLocator.GetService<MyAudioManager>().PlayMusic("boss");
             ServiceLocator.GetService<MyDialogueManager>().TextLevel("Level3");
         }
         

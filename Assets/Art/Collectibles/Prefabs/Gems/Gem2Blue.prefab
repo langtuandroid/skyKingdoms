@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 114859855968673622}
   - component: {fileID: 82050173413735076}
   - component: {fileID: 135897758608950346}
+  - component: {fileID: 3302347711377958883}
   m_Layer: 0
   m_Name: Gem2Blue
   m_TagString: Untagged
@@ -212,3 +213,17 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3302347711377958883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970942805403306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1e78cb41a9b44c1b9287942231aee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _specialAttack: {fileID: 2934598830389546981, guid: 18a57689c8a298146a0943e3d3194796, type: 3}
+  _superSpecialAttack: {fileID: 0}
