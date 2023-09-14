@@ -64,6 +64,7 @@ public class PlayerAnimator
 
     public void SpecialAttack()
     {
-        _animator.SetTrigger("specialattack");
+        //_animator.SetTrigger("specialattack");
+        _animator.Play("Spell");
     }
 }
