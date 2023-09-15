@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 2384154148109129204}
   - component: {fileID: 1637599448326380113}
   - component: {fileID: 3557029295866932891}
-  - component: {fileID: 5244661053680933543}
-  - component: {fileID: 1710746515}
+  - component: {fileID: 2161373361637485052}
   m_Layer: 8
   m_Name: ground park 3
   m_TagString: Platform
@@ -85,21 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5244661053680933543
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3052850368475156302}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 3.84, y: 15, z: 4.51}
-  m_Center: {x: 0, y: 6, z: 0.19}
---- !u!65 &1710746515
-BoxCollider:
+--- !u!64 &2161373361637485052
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -108,6 +94,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5.6395726, y: 0.3000489, z: 5.553895}
-  m_Center: {x: 0, y: 0.150024, z: 0}
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4356901771849843921, guid: d2a60a76befad44449f29737a21acbe0, type: 3}
