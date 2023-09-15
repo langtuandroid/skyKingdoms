@@ -35825,7 +35825,7 @@ MonoBehaviour:
   _groundLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  groundCheckDistance: 0.025
+  groundCheckDistance: 0.05
   CanMove: 1
 --- !u!114 &4299516236078458896
 MonoBehaviour:

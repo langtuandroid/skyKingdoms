@@ -8,12 +8,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 824599481180675623, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
-      propertyPath: particlePrefab
-      value: 
-      objectReference: {fileID: 5024009746357069194, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
-    - target: {fileID: 6351495536373429864, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: _jumpHeight
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 824599481180675623, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
+      propertyPath: groundCheckDistance
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 8189980434977739222, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
       propertyPath: m_Name
