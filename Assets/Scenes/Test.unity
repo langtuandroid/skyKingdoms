@@ -875,26 +875,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ServiceInitializer
       objectReference: {fileID: 0}
-    - target: {fileID: 5641319816469818008, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
-      propertyPath: HitImpactList.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5641319816469818008, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
-      propertyPath: HitImpactList.Array.data[0]
-      value: 
-      objectReference: {fileID: 7226583673155636401, guid: a2ab56839e1c9504ea9d141e95d0b16b, type: 3}
-    - target: {fileID: 5641319816469818008, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
-      propertyPath: HitImpactList.Array.data[1]
-      value: 
-      objectReference: {fileID: 5024009746357069194, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
-    - target: {fileID: 5641319816469818008, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
-      propertyPath: HitImpactList.Array.data[2]
-      value: 
-      objectReference: {fileID: 2955623459812423943, guid: f5507a8c6a22c404ab324980c4e8a11b, type: 3}
-    - target: {fileID: 5641319816469818008, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
-      propertyPath: HitImpactList.Array.data[3]
-      value: 
-      objectReference: {fileID: 8443315704496310910, guid: 6ef35fa36e3a65043b2d800600204bdd, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
 --- !u!1001 &8999699525001088068
