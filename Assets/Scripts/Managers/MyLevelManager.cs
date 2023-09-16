@@ -90,6 +90,7 @@ namespace Managers
         
         private void InitializeTheVillage()
         {
+            ServiceLocator.GetService<MyAudioManager>().PlayMusic("theVillage");
             ServiceLocator.GetService<PlayerData>().PlayerInstantation();
             ServiceLocator.GetService<MyGameManager>().ResumePlayerMovement();
         }

@@ -20,12 +20,6 @@ public class PlayerAnimator
         //Movement
         _animator.SetBool(Constants.AnimatorWalk, movement.magnitude > 0.1f);
         _animator.SetFloat(Constants.AnimatorSpeed, movement.magnitude);
-
-        //Jump
-        _animator.SetBool(Constants.AnimatorJump, isJumping);
-        
-        //Land
-        _animator.SetBool(Constants.AnimatorLand, isGrounded);
     }
 
     public void PlaySwordAttack(int actualPhysicaAttack)
@@ -59,12 +53,21 @@ public class PlayerAnimator
     
     public void DoubleJump()
     {
-        _animator.SetTrigger(Constants.AnimatorDoubleJump);
+        _animator.Play(Constants.AnimatorDoubleJump);
     }
 
+    public void Fall()
+    {
+        _animator.Play(Constants.AnimatorPlayJump);
+    }
+    
+    public void EndJump()
+    {
+        _animator.Play(Constants.AnimatorLand);
+    }
+    
     public void SpecialAttack()
     {
-        //_animator.SetTrigger("specialattack");
         _animator.Play("Spell");
     }
 }

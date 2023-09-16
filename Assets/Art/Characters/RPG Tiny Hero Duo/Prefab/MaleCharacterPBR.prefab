@@ -35820,12 +35820,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 3
-  _rotationSpeed: 3
+  _rotationSpeed: 4
   _jumpHeight: 1
   _groundLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  groundCheckDistance: 0.05
+  groundCheckDistance: 0.025
   CanMove: 1
 --- !u!114 &4299516236078458896
 MonoBehaviour:

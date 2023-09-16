@@ -17,6 +17,10 @@ namespace Managers
         public InputAction uiMovementAction;
         public InputAction submitAction;
         public InputAction anyAction;
+        
+        public InputAction cameraInputAction;
+        
+        
 
         public bool AnyBtnPressed;
 
@@ -43,6 +47,8 @@ namespace Managers
                 defenseAction = playerActionMap.FindAction("Defense");
                 specialAttackAction = playerActionMap.FindAction("Special Attack");
                 attackAction = playerActionMap.FindAction("Attack");
+                cameraInputAction = playerActionMap.FindAction("Camera");
+                
             }
             else
             {
@@ -97,6 +103,9 @@ namespace Managers
             
             if (attackAction != null)
                 attackAction.Enable();
+            
+            if (cameraInputAction != null)
+                cameraInputAction.Enable();
         }
 
         /// <summary>
@@ -123,6 +132,9 @@ namespace Managers
             
             if (attackAction != null)
                 attackAction.Disable();
+            
+            if (cameraInputAction != null)
+                cameraInputAction.Disable();
 
             if (uiMovementAction != null)
                 uiMovementAction.Enable();

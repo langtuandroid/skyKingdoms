@@ -15,6 +15,7 @@ public class MyAudioManager : MonoBehaviour
     public AudioClip dungeon;
     public AudioClip theEnd;
     public AudioClip town;
+    public AudioClip theVillage;
     
     // SFX
     public AudioClip ringSFX;
@@ -91,6 +92,11 @@ public class MyAudioManager : MonoBehaviour
                 break;
             case nameof(town):
                 sourceMusic.clip = town;
+                sourceMusic.loop = true;
+                sourceMusic.Play();
+                break;
+            case nameof(theVillage):
+                sourceMusic.clip = theVillage;
                 sourceMusic.loop = true;
                 sourceMusic.Play();
                 break;

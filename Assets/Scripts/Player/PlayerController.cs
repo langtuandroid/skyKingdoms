@@ -5,6 +5,7 @@ using Managers;
 using MoreMountains.Feedbacks;
 using MoreMountains.Feel;
 using Service;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -48,9 +49,10 @@ namespace Player
         #region JUMP VARIABLES
         public float groundCheckDistance = 0.5f;
         private bool _isJumping = false;
-        private bool _isGrounded = true;
+        private int _jumpCount = 0;
+        private bool _isGrounded = false;
         private bool _isDoubleJump = false;
-        private int _jumpCount;
+        private bool _hasLanded = false;
         #endregion
     
         #region PHYSICAL ATTACK VARIABLES
@@ -179,10 +181,13 @@ namespace Player
             }
         
             //CAIDA DESDE SALTO
-            if (!_isGrounded && _rb.velocity.y < 0)
+            if (_rb.velocity.y < -0.5f)
             {
-                Debug.Log("Caigoooooooo");
-                _rb.AddForce(Vector3.down * 2, ForceMode.Force);
+                Vector3 downwardForce = Vector3.down * 6f;
+                Vector3 forwardForce = transform.forward * 5f;
+                Vector3 combinedForce = downwardForce + forwardForce;
+
+                _rb.AddForce(combinedForce, ForceMode.Force);
             }
         }
         #endregion
@@ -207,40 +212,40 @@ namespace Player
     
         private void OnJumpPerformed(InputAction.CallbackContext context)
         {
-            if (_isGrounded && !_isJumping)
+  
+            if(_jumpCount > 1) return;
+            
+            switch (_jumpCount)
             {
-                _isJumping = true;
-                _isDoubleJump = false;
-                _playerAnimator.Jump();
-                _jump.JumpAction(_jumpHeight);
-            }
-            else if(!_isDoubleJump)
-            {
-                _isDoubleJump = true;
-                _playerAnimator.DoubleJump();
-                _jump.DoubleJumpAction(_jumpHeight);
+                case 0:
+                    _playerAnimator.Jump();
+                    _isGrounded = false;
+                    _hasLanded = false;
+                    _jump.JumpAction(_jumpHeight);
+                    _jumpCount++;
+                    break;
+                case 1:
+                    _playerAnimator.DoubleJump();
+                    _jump.DoubleJumpAction(_jumpHeight);
+                    _jumpCount++;
+                    break;
             }
         }
-
-    
+        
         private void CheckGrounded()
         {
-            RaycastHit hit;
-
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance, _groundLayerMask))
+            Collider[] colliders = Physics.OverlapSphere(transform.position, 0.2f, _groundLayerMask);
+            if (colliders.Length > 0)
             {
-                _isGrounded = true;
-            }
-        
-            if (_rb.velocity.y != 0f && !_isGrounded)
-            {
-                _isJumping = true;
-            } else if (_rb.velocity.y == 0f && _isGrounded)
-            {
-                _isJumping = false;
+                if(!_isGrounded)
+                {
+                    _isGrounded = true;
+                    _jumpCount = 0;
+                    _playerAnimator.EndJump();
+                }
             }
         }
-    
+        
         private IEnumerator WaitAndWalk()
         {
             CanMove = false;
@@ -266,18 +271,6 @@ namespace Player
                 _interaction.Interact();
             else 
                 Debug.Log("Aun no puedo usar la defensa");
-        }
-    
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            RaycastHit hit;
-
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance, _groundLayerMask))
-            {
-                Gizmos.DrawLine(hit.point, hit.point + hit.normal); 
-                Gizmos.DrawSphere(hit.point, 0.1f);
-            }
         }
     }
 }

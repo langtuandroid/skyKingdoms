@@ -19,11 +19,16 @@ namespace Utils
     
         public const string AnimatorWalk = "walk";
         public const string AnimatorSpeed = "speed";
+        
+        /// <summary>
+        /// Jump Animations
+        /// </summary>
         public const string AnimatorJump = "jump";
         public const string AnimatorShoot = "shoot";
-        public const string AnimatorDoubleJump = "doubleJump";
-        public const string AnimatorPlayJump = "JumpStart_Normal_InPlace_SwordAndShield";
-        public const string AnimatorLand = "land";
+        public const string AnimatorPlayJump = "JumpStart_Normal";
+        public const string AnimatorDoubleJump = "JumpFull_Spin";
+        public const string AnimatorLand = "JumpEnd_Normal";
+        
         public const string AnimatorIdleNoWeapon = "idleNoWeapon";
         public const string AnimatorIdleBattle = "idleBattle";
         
