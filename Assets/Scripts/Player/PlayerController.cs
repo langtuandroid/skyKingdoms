@@ -5,7 +5,6 @@ using Managers;
 using MoreMountains.Feedbacks;
 using MoreMountains.Feel;
 using Service;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,13 +25,8 @@ namespace Player
         [Tooltip("Fuerza del salto.")]
         [SerializeField]
         private float _jumpHeight;
-    
-        [Tooltip("Máscara de capa utilizada para verificar si el personaje está en el suelo.")]
-        [SerializeField]
-        private LayerMask _groundLayerMask;
-
+        
         #region REFERENCES
-        private Rigidbody _rb;
         private Animator _animator;
         private CinemachineFreeLook _camera;
         private Vector3 _movement;
@@ -40,25 +34,27 @@ namespace Player
         private SwordAttack _swordAttack;
         private SpecialAttack _specialAttack;
         private BounceFeedbacks _bounceFeedbacks;
-    
+        private CharacterController _characterController;
         private MyInputManager _gameInputs;
         private Jump _jump;
         private PlayerAnimator _playerAnimator;
         #endregion
 
         #region JUMP VARIABLES
-        public float groundCheckDistance = 0.5f;
-        private bool _isJumping = false;
-        private int _jumpCount = 0;
-        private bool _isGrounded = false;
-        private bool _isDoubleJump = false;
-        private bool _hasLanded = false;
+        private bool _isJumping;
+        private bool _isDoubleJump;
         #endregion
     
         #region PHYSICAL ATTACK VARIABLES
 
         private int _actualPhysicaAttack = 1;
 
+        #endregion
+        
+        #region EQUIPMENT
+
+        private bool _hasSwordShield;
+        
         #endregion
 
         public bool CanMove = false;
@@ -79,12 +75,12 @@ namespace Player
         private void Awake()
         {
             //Components
-            _rb = GetComponent<Rigidbody>();
             _animator = GetComponent<Animator>();
             _interaction = GetComponent<Interaction>();
             _swordAttack = GetComponentInChildren<SwordAttack>();
             _camera = GameObject.FindGameObjectWithTag("VirtualCamera").GetComponent<CinemachineFreeLook>();
             _specialAttack = GetComponent<SpecialAttack>();
+            _characterController = GetComponent<CharacterController>();
         
             //Feel
             _bounceFeedbacks = GetComponent<BounceFeedbacks>();
@@ -115,7 +111,7 @@ namespace Player
             _gameInputs.jumpAction.performed += OnJumpPerformed;
         
             //JUMP
-            _jump.Init(_rb);
+            _jump.Init(_characterController);
         
             //ANIMATOR
             _playerAnimator.Init(_animator);
@@ -124,6 +120,8 @@ namespace Player
             var transform1 = transform;
             _camera.Follow = transform1;
             _camera.LookAt = transform1;
+
+            _hasSwordShield = false;
         
             CanMove = true;
         }
@@ -131,7 +129,8 @@ namespace Player
         private void Update()
         {
             if (!CanMove) return;
-        
+            
+            _jump.ApplyGravity(Physics.gravity.y);
             CheckGrounded();
         }
 
@@ -144,7 +143,9 @@ namespace Player
 
         private void LateUpdate()
         {
-            _playerAnimator.PlayAnimation(_movement, _isJumping, _isGrounded);
+            _playerAnimator.PlayAnimation(_movement, false, false);
+            _playerAnimator.EndJump(_characterController.isGrounded);
+            _playerAnimator.Equipment(false);
         }
 
         #region MOVEMENT
@@ -169,25 +170,14 @@ namespace Player
             relativeDirection.y = 0;
             relativeDirection.Normalize();
 
-            // MOVIMIENTO
-            Vector3 move = relativeDirection * _speed * Time.deltaTime;
-            _rb.MovePosition(_rb.position + move);
+            Vector3 move = relativeDirection * (_speed * Time.deltaTime);
+            _characterController.Move(move);
 
             // ROTACION
             if (direction != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(relativeDirection, Vector3.up);
-                _rb.rotation = Quaternion.Slerp(_rb.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
-            }
-        
-            //CAIDA DESDE SALTO
-            if (_rb.velocity.y < -0.5f)
-            {
-                Vector3 downwardForce = Vector3.down * 6f;
-                Vector3 forwardForce = transform.forward * 5f;
-                Vector3 combinedForce = downwardForce + forwardForce;
-
-                _rb.AddForce(combinedForce, ForceMode.Force);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
             }
         }
         #endregion
@@ -195,10 +185,10 @@ namespace Player
         #region ATTACK
         private void OnAttackPerformed(InputAction.CallbackContext obj)
         {
-            if (_actualPhysicaAttack > 4) _actualPhysicaAttack = 1;
+            /*if (_actualPhysicaAttack > 4) _actualPhysicaAttack = 1;
             _swordAttack.Attack();
             _playerAnimator.PlaySwordAttack(_actualPhysicaAttack);
-            _actualPhysicaAttack++;
+            _actualPhysicaAttack++;*/
         }
 
         //Método que llamamos desde el animator para reseteo de ataque físico
@@ -209,40 +199,30 @@ namespace Player
         #endregion
 
         #region JUMP
-    
+        
         private void OnJumpPerformed(InputAction.CallbackContext context)
         {
-  
-            if(_jumpCount > 1) return;
-            
-            switch (_jumpCount)
+            if (!_isJumping)
             {
-                case 0:
-                    _playerAnimator.Jump();
-                    _isGrounded = false;
-                    _hasLanded = false;
-                    _jump.JumpAction(_jumpHeight);
-                    _jumpCount++;
-                    break;
-                case 1:
-                    _playerAnimator.DoubleJump();
-                    _jump.DoubleJumpAction(_jumpHeight);
-                    _jumpCount++;
-                    break;
+                _isJumping = true;
+                _isDoubleJump = false;
+                _jump.JumpAction(_jumpHeight, Physics.gravity.y);
+                _playerAnimator.Jump();
+            }
+            else if(!_isDoubleJump)
+            {
+                _isDoubleJump = true;
+                _jump.DoubleJumpAction(_jumpHeight, Physics.gravity.y);
+                _playerAnimator.DoubleJump();
             }
         }
-        
+
         private void CheckGrounded()
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, 0.2f, _groundLayerMask);
-            if (colliders.Length > 0)
+            if (_characterController.isGrounded)
             {
-                if(!_isGrounded)
-                {
-                    _isGrounded = true;
-                    _jumpCount = 0;
-                    _playerAnimator.EndJump();
-                }
+                _isJumping = false;
+                _isDoubleJump = false;
             }
         }
         
@@ -260,9 +240,9 @@ namespace Player
     
         private void OnSpecialAttackPerformed(InputAction.CallbackContext obj)
         {
-            _bounceFeedbacks.PlayCharge();
+            /*_bounceFeedbacks.PlayCharge();
             _specialAttack.Attack();
-            _playerAnimator.SpecialAttack();
+            _playerAnimator.SpecialAttack();*/
         }
     
         private void OnDefenseOrInteractPerformed(InputAction.CallbackContext obj)

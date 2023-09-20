@@ -875,6 +875,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ServiceInitializer
       objectReference: {fileID: 0}
+    - target: {fileID: 3990135320986360112, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 7615949256144406868, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
+      propertyPath: field of view
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
 --- !u!1001 &8999699525001088068

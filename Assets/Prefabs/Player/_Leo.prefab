@@ -7,14 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1544741682, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 824599481180675623, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
-      propertyPath: groundCheckDistance
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8189980434977739222, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
       propertyPath: m_Name
       value: _Leo

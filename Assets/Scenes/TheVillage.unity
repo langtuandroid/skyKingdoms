@@ -4541,7 +4541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1486726653596525026, guid: daf661d478fbcbf4791f00721500cb43, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -39
+      value: -40.8
       objectReference: {fileID: 0}
     - target: {fileID: 1486726653596525026, guid: daf661d478fbcbf4791f00721500cb43, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4549,7 +4549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1486726653596525026, guid: daf661d478fbcbf4791f00721500cb43, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 100.3
+      value: 102.8
       objectReference: {fileID: 0}
     - target: {fileID: 1486726653596525026, guid: daf661d478fbcbf4791f00721500cb43, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12731,6 +12731,22 @@ PrefabInstance:
     - target: {fileID: 2737076256948910587, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
       propertyPath: m_Name
       value: ServiceInitializer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7615949256144406868, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
+      propertyPath: field of view
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7615949256144406868, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
+      propertyPath: m_FocalLength
+      value: 17.137775
+      objectReference: {fileID: 0}
+    - target: {fileID: 7615949256144406868, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7615949256144406868, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64f85d5b2db0248c9a39dd8e0a63641b, type: 3}

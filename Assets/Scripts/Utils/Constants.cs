@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Utils
 {
     public abstract class Constants
@@ -27,7 +29,7 @@ namespace Utils
         public const string AnimatorShoot = "shoot";
         public const string AnimatorPlayJump = "JumpStart_Normal";
         public const string AnimatorDoubleJump = "JumpFull_Spin";
-        public const string AnimatorLand = "JumpEnd_Normal";
+        public static readonly int Land = Animator.StringToHash("land");
         
         public const string AnimatorIdleNoWeapon = "idleNoWeapon";
         public const string AnimatorIdleBattle = "idleBattle";

@@ -27,7 +27,6 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1418480443928390042}
   m_RootOrder: 1
@@ -47,7 +46,6 @@ MonoBehaviour:
   Feedbacks:
   - {fileID: 0}
   InitializationMode: 1
-  AutoInitialization: 1
   SafeMode: 3
   Direction: 0
   AutoChangeDirectionOnEnd: 0
@@ -122,15 +120,14 @@ MonoBehaviour:
         m_Calls: []
   DebugActive: 0
   FeedbacksList:
-  - rid: 0
+  - id: 0
   KeepPlayModeChanges: 0
   PerformanceMode: 0
-  StopFeedbacksOnDisable: 0
+  ForceStopFeedbacksOnDisable: 1
   PlayCount: 0
   references:
-    version: 2
-    RefIds:
-    - rid: 0
+    version: 1
+    00000000:
       type: {class: MMF_Scale, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks}
       data:
         Active: 0
@@ -447,7 +444,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5952698596636219053}
   m_Father: {fileID: 1418480443928390042}
@@ -481,7 +477,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6522080239221119930}
   - {fileID: 1396945909397809018}
@@ -552,7 +547,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5952698596636219053}
   m_RootOrder: 0
@@ -568,7 +562,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -647,7 +640,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1418480444232694738}
   m_Father: {fileID: 6522080239221119930}

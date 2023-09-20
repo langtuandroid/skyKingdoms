@@ -5,9 +5,6 @@ namespace Player
     public class Interaction : MonoBehaviour
     {
         [SerializeField]
-        private Transform _colliderOffset;
-    
-        [SerializeField]
         private LayerMask _interactableLayer;
 
         private IInteractable _interactable;
@@ -36,43 +33,31 @@ namespace Player
         public bool CanInteract()
         {
             _interactable?.ShowCanInteract(false);
-            
-            Vector3 origin = transform.position + _colliderOffset.position;
-            
-            RaycastHit hit;
-            
-            if (Physics.Raycast(origin, transform.forward, out hit, _checkDistance, _interactableLayer))
+
+            float angleStep = 10.0f; 
+            float visionAngle = 60.0f; 
+
+            for (float angle = -visionAngle / 2; angle < visionAngle / 2; angle += angleStep)
             {
-                _interactable = hit.collider.GetComponent<IInteractable>();
-            }
-            else
-            {
-                _interactable = null;
-            }
-            
-            if (_interactable != null)
-            {
-                _interactable?.ShowCanInteract(true);
-                return true;
-            }  
-            
-            origin = transform.position + _colliderOffset.position;
-            
-            if (Physics.Raycast(origin, transform.forward, out hit, _checkDistance, _interactableLayer))
-            {
-                _interactable = hit.collider.GetComponent<IInteractable>();
-            }
-            else
-            {
-                _interactable = null;
+                Vector3 dir = Quaternion.Euler(0, angle, 0) * transform.forward;
+                Vector3 origin = transform.position; // Origen corregido
+
+                RaycastHit hit;
+                
+                // Incrementada la duración del rayo dibujado para facilitar la depuración
+                Debug.DrawRay(origin, dir * _checkDistance, Color.red, 1.0f);
+
+                if (Physics.Raycast(origin, dir, out hit, _checkDistance, _interactableLayer))
+                {
+                    _interactable = hit.collider.GetComponent<IInteractable>();
+                    if (_interactable != null)
+                    {
+                        _interactable.ShowCanInteract(true);
+                        return true;
+                    }
+                }
             }
 
-            if (_interactable != null)
-            {
-                _interactable?.ShowCanInteract(true);
-                return true;
-            }  
-            
             return false;
         }
 

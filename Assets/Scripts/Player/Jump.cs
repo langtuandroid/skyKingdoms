@@ -4,23 +4,28 @@ namespace Player
 {
     public class Jump
     {
-        private Rigidbody _rb;
+        private CharacterController _characterController;
+        private Vector3 _velocity;
 
-        public void Init(Rigidbody rb)
+        public void Init(CharacterController characterController)
         {
-            _rb = rb;
+            _characterController = characterController;
         }
 
-        public void JumpAction(float jumpHeight)
+        public void JumpAction(float jumpHeight, float gravity)
         {
-            float jumpForce = Mathf.Sqrt(2f * jumpHeight * Physics.gravity.magnitude);
-            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            _velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         }
 
-        public void DoubleJumpAction(float jumpHeight)
+        public void DoubleJumpAction(float jumpHeight, float gravity)
         {
-            float doubleJumpForce = Mathf.Sqrt(3f * jumpHeight * Physics.gravity.magnitude);
-            _rb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse);
+            _velocity.y = Mathf.Sqrt((jumpHeight * 1.5f) * -3 * gravity);
+        }
+
+        public void ApplyGravity(float gravity)
+        {
+            _velocity.y += gravity * Time.deltaTime;
+            _characterController.Move(_velocity * Time.deltaTime);
         }
     }
 }
